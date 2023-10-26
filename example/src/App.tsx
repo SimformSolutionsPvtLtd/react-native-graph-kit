@@ -1,8 +1,6 @@
 import React from 'react';
-import { Button } from 'react-native-graph-kit';
+import { View } from 'react-native';
 
-const App = () => {
-  return <Button text="Example" />;
-};
+const App = () => <View />;
 
 export default App;
