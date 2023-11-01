@@ -1,9 +1,8 @@
 import {
-  listFontFamilies,
-  matchFont,
-  runTiming,
   SkFont,
   Skia,
+  matchFont,
+  runTiming,
   useComputedValue,
   useFont,
   useValue
@@ -11,7 +10,8 @@ import {
 import type { NumberValue } from 'd3';
 import * as d3 from 'd3';
 import { useEffect } from 'react';
-import { Easing, Platform } from 'react-native';
+import { Easing } from 'react-native';
+import { useDefaultFont } from '../../hooks';
 import { chartWidth, horizontalScale, screenHeight } from '../../theme';
 import type { BarChartHookPropType } from './BarChartTypes';
 
@@ -31,16 +31,7 @@ export default function useBarChart({
   legendSize
 }: BarChartHookPropType) {
   const chartBottomMargin = 14;
-  const defaultFont = listFontFamilies();
-  const fontFamily = Platform.select({
-    ios: defaultFont?.[0],
-    android: defaultFont?.[0],
-    default: defaultFont?.[0]
-  });
-  const fontStyle = {
-    fontFamily,
-    fontSize: labelSize
-  };
+  const { fontStyle } = useDefaultFont({ labelSize });
   const userAddedFont = useFont(labelFontFamily, labelSize);
   const font: SkFont | null = labelFontFamily ? userAddedFont : matchFont(fontStyle);
   const animationState = useValue(0);
