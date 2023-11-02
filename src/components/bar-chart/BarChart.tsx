@@ -6,6 +6,7 @@ import { styles } from './BarChartStyles';
 import type { BarChartProps } from './BarChartTypes';
 import { RenderHorizontalGridLines, XAxisLabels, YAxisLabels } from './components';
 import useBarChart from './useBarChart';
+import { ToolTip } from '../tooltip';
 
 const BarChart = ({
   chartData,
@@ -33,7 +34,14 @@ const BarChart = ({
   yLegendMarginLeft = 0,
   yLegendMarginRight = 0,
   xLegendColor = Colors.black,
-  yLegendColor = Colors.black
+  yLegendColor = Colors.black,
+  toolTipLabelFontSize,
+  toolTipColor,
+  toolTipDataColor,
+  circularPointerColor,
+  toolTipHorizontalPadding,
+  toolTipFadeOutDuration,
+  displayToolTip = false
 }: BarChartProps) => {
   const {
     font,
@@ -51,7 +59,15 @@ const BarChart = ({
     yLabelWidth,
     canvasWidth,
     barChartWidth,
-    xLabelPaddingLeft
+    xLabelPaddingLeft,
+    touchHandler,
+    xForWindow,
+    xCoordinateForDataPoint,
+    yCoordinateForDataPoint,
+    pointData,
+    windowSize,
+    setXForWindow,
+    setWindowSize
   } = useBarChart({
     chartData,
     chartHeight,
@@ -115,8 +131,18 @@ const BarChart = ({
               />
             </Canvas>
           </View>
-          <ScrollView bounces={false} horizontal={true} showsHorizontalScrollIndicator={false}>
-            <Canvas style={style.chartCanvasContainer}>
+          <ScrollView
+            horizontal
+            bounces={false}
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={setXForWindow}
+            onScrollEndDrag={setXForWindow}
+            onLayout={setWindowSize}
+          >
+            <Canvas
+              style={style.chartCanvasContainer}
+              onTouch={displayToolTip ? touchHandler : undefined}
+            >
               {showLines && (
                 <RenderHorizontalGridLines
                   {...{
@@ -149,6 +175,26 @@ const BarChart = ({
                   canvasHeightWithHorizontalLabel
                 }}
               />
+              {displayToolTip && (
+                <ToolTip
+                  xForWindow={xForWindow.current}
+                  {...{
+                    xCoordinateForDataPoint,
+                    yCoordinateForDataPoint,
+                    pointData,
+                    labelFontFamily,
+                    xAxisLegend,
+                    yAxisLegend,
+                    windowSize,
+                    toolTipLabelFontSize,
+                    toolTipColor,
+                    toolTipDataColor,
+                    circularPointerColor,
+                    toolTipHorizontalPadding,
+                    toolTipFadeOutDuration
+                  }}
+                />
+              )}
             </Canvas>
           </ScrollView>
         </View>

@@ -1,5 +1,6 @@
 import type { DataSource, SkiaValue } from '@shopify/react-native-skia';
 import type { MutableRefObject } from 'react';
+import type { LayoutRectangle } from 'react-native';
 
 type WindowSizeDataType = {
   x: number;
@@ -11,6 +12,12 @@ type WindowSizeType = MutableRefObject<WindowSizeDataType>;
 type PointDataType = {
   x: string;
   y: string;
+};
+
+type SetWindowSizeArgsType = {
+  nativeEvent: {
+    layout: LayoutRectangle;
+  };
 };
 
 interface ToolTipPropsType {
@@ -50,5 +57,6 @@ export type {
   WindowSizeType,
   UseToolTipPropsType,
   PointDataType,
-  WindowSizeDataType
+  WindowSizeDataType,
+  SetWindowSizeArgsType
 };
