@@ -8,7 +8,15 @@ import type {
   SkiaValue
 } from '@shopify/react-native-skia';
 import type { ScaleLinear, ScalePoint } from 'd3';
-import type { ColorValue, LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native';
+import type { MutableRefObject } from 'react';
+import type {
+  ColorValue,
+  LayoutChangeEvent,
+  NativeScrollEvent,
+  StyleProp,
+  ViewStyle
+} from 'react-native';
+import type { PointDataType, SetWindowSizeArgsType, WindowSizeDataType } from '../tooltip';
 
 export type LineChartDataType = {
   xAxis: {
@@ -52,6 +60,14 @@ export interface LineChartHookReturnType {
   xScale: ScalePoint<string>;
   canvasWidthHandler: number;
   chartYAxisWidthStyle: StyleProp<ViewStyle>;
+  touchHandler: any;
+  xForWindow: MutableRefObject<number>;
+  xCoordinateForDataPoint: SkiaMutableValue<number>;
+  yCoordinateForDataPoint: SkiaMutableValue<number>;
+  pointData: PointDataType;
+  windowSize: MutableRefObject<WindowSizeDataType>;
+  setXForWindow: ({ nativeEvent }: { nativeEvent: NativeScrollEvent }) => void;
+  setWindowSize: ({ nativeEvent }: SetWindowSizeArgsType) => void;
 }
 
 export interface LineChartPropsType extends CommonLineChartTypes {
@@ -71,6 +87,13 @@ export interface LineChartPropsType extends CommonLineChartTypes {
   yLegendMarginLeft?: number;
   xLegendColor?: ColorValue;
   yLegendColor?: ColorValue;
+  toolTipLabelFontSize?: number;
+  toolTipColor?: string;
+  toolTipDataColor?: string;
+  circularPointerColor?: string;
+  toolTipHorizontalPadding?: number;
+  toolTipFadeOutDuration?: number;
+  displayToolTip?: boolean;
 }
 
 export type LineChartYAxisProps = {

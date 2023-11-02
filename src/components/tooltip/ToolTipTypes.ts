@@ -1,4 +1,4 @@
-import type { DataSource, SkiaValue } from '@shopify/react-native-skia';
+import type { DataSourceParam, SkiaValue } from '@shopify/react-native-skia';
 import type { MutableRefObject } from 'react';
 import type { LayoutRectangle } from 'react-native';
 
@@ -24,7 +24,7 @@ interface ToolTipPropsType {
   yCoordinateForDataPoint: SkiaValue<number>;
   xCoordinateForDataPoint: SkiaValue<number>;
   pointData: PointDataType;
-  labelFontFamily?: DataSource;
+  labelFontFamily?: DataSourceParam;
   xAxisLegend: string;
   yAxisLegend: string;
   windowSize: WindowSizeType;
@@ -39,7 +39,7 @@ interface ToolTipPropsType {
 }
 
 interface UseToolTipPropsType {
-  labelFontFamily?: DataSource;
+  labelFontFamily?: DataSourceParam;
   xAxisLegend: string;
   yAxisLegend: string;
   pointData: PointDataType;

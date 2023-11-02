@@ -4,6 +4,7 @@ import {
   SkiaValue,
   runTiming,
   useComputedValue,
+  useTouchHandler,
   useValue
 } from '@shopify/react-native-skia';
 import { scaleLinear, scalePoint, type ScaleLinear, type ScalePoint } from 'd3';
@@ -29,6 +30,7 @@ import type {
   LineChartHookReturnType,
   ScaledDataType
 } from './LineChartTypes';
+import { useToolTipUtils } from '../tooltip';
 
 /**
  * Reference to handle the line animation.
@@ -59,6 +61,17 @@ const useLineChart = ({
 
   const [canvasWidth, setCanvasWidth] = useState<number>(0);
   const [canvasHeight, setCanvasHeight] = useState<number>(0);
+
+  const {
+    windowSize,
+    xForWindow,
+    pointData,
+    setPointData,
+    xCoordinateForDataPoint,
+    yCoordinateForDataPoint,
+    setXForWindow,
+    setWindowSize
+  } = useToolTipUtils();
 
   /**
    * Value to manipulate the line drawing path.
@@ -217,6 +230,37 @@ const useLineChart = ({
     [scaledData]
   );
 
+  const touchHandler = useTouchHandler(
+    {
+      onStart: ({ x }) => {
+        const closestX = xScale.domain().reduce((prev, curr) => {
+          return Math.abs((xScale(curr) as number) - x) < Math.abs((xScale(prev) as number) - x)
+            ? curr
+            : prev;
+        });
+        const findYValueForX = (targetX: string) => {
+          const xValueIndex = chartData?.xAxis?.labels?.findIndex((e) => e == targetX?.toString());
+          return chartData?.yAxis?.datasets?.[xValueIndex]; // Return 0 if the value of x is not found in the array.
+        };
+
+        const closestY = findYValueForX(closestX);
+        // Set X and Y coordinates of the closest data point on chart
+        xScale.domain().forEach((item) => {
+          if (item === closestX) {
+            xCoordinateForDataPoint.current = xScale(item) as number;
+          }
+        });
+        yCoordinateForDataPoint.current = yScale(closestY);
+
+        setPointData({
+          x: closestX,
+          y: closestY?.toString()
+        });
+      }
+    },
+    [xScaleBounds]
+  );
+
   return {
     canvasHeight,
     canvasWidth,
@@ -231,7 +275,15 @@ const useLineChart = ({
     xScaleBounds,
     xScale,
     canvasWidthHandler,
-    chartYAxisWidthStyle
+    chartYAxisWidthStyle,
+    touchHandler,
+    xForWindow,
+    xCoordinateForDataPoint,
+    yCoordinateForDataPoint,
+    pointData,
+    windowSize,
+    setXForWindow,
+    setWindowSize
   };
 };
 
