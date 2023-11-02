@@ -37,6 +37,13 @@ type BarChartProps = {
   yLegendMarginRight?: number;
   xLegendColor?: string;
   yLegendColor?: string;
+  toolTipLabelFontSize?: number;
+  toolTipColor?: string;
+  toolTipDataColor?: string;
+  circularPointerColor?: string;
+  toolTipHorizontalPadding?: number;
+  toolTipFadeOutDuration?: number;
+  displayToolTip?: boolean;
 };
 
 interface BarChartHookPropType {

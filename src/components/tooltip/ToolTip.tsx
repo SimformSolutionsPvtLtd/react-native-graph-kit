@@ -6,7 +6,7 @@ import useToolTip from './useToolTip';
 import {
   TOOLTIP_BORDER_RADIUS_RECTIFIER,
   TOOLTIP_DATA_POINT_CIRCLE_RECTIFIER
-} from 'src/constants';
+} from '../../constants';
 
 const ToolTip = ({
   xCoordinateForDataPoint,
@@ -82,7 +82,7 @@ const ToolTip = ({
         font={font}
         color={toolTipDataColor}
       />
-      {!displayCircularPointer && (
+      {displayCircularPointer && (
         <Circle
           cx={xCoordinateForDataPoint}
           cy={yCoordinateForDataPoint}

@@ -1,6 +1,7 @@
 import { useValue } from '@shopify/react-native-skia';
 import { useRef, useState } from 'react';
-import type { PointDataType, WindowSizeDataType } from './ToolTipTypes';
+import type { PointDataType, SetWindowSizeArgsType, WindowSizeDataType } from './ToolTipTypes';
+import type { NativeScrollEvent } from 'react-native';
 
 const useToolTipUtils = () => {
   const windowSize = useRef<WindowSizeDataType>({
@@ -15,13 +16,24 @@ const useToolTipUtils = () => {
     y: '0'
   });
 
+  const setXForWindow = ({ nativeEvent }: { nativeEvent: NativeScrollEvent }) => {
+    xForWindow.current = nativeEvent.contentOffset.x;
+  };
+
+  const setWindowSize = ({ nativeEvent }: SetWindowSizeArgsType) => {
+    windowSize.current.x = nativeEvent.layout.width;
+    windowSize.current.y = nativeEvent.layout.height;
+  };
+
   return {
     windowSize,
     xForWindow,
     pointData,
     setPointData,
     xCoordinateForDataPoint,
-    yCoordinateForDataPoint
+    yCoordinateForDataPoint,
+    setXForWindow,
+    setWindowSize
   };
 };
 

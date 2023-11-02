@@ -5,6 +5,7 @@ import {
   runTiming,
   useComputedValue,
   useFont,
+  useTouchHandler,
   useValue
 } from '@shopify/react-native-skia';
 import type { NumberValue } from 'd3';
@@ -14,6 +15,8 @@ import { Easing } from 'react-native';
 import { useDefaultFont } from '../../hooks';
 import { chartWidth, horizontalScale, screenHeight } from '../../theme';
 import type { BarChartHookPropType } from './BarChartTypes';
+import { useToolTipUtils } from '../tooltip';
+import { BARGRAPH_TOOLTIP_HITSLOP } from '../../constants';
 
 export default function useBarChart({
   chartData,
@@ -41,6 +44,16 @@ export default function useBarChart({
   const initialSpace = 10;
   const xAxisData: string[] = chartData?.xAxis?.labels;
   const yAxisData: number[] = chartData?.yAxis?.datasets;
+  const {
+    windowSize,
+    xForWindow,
+    pointData,
+    setPointData,
+    xCoordinateForDataPoint,
+    yCoordinateForDataPoint,
+    setXForWindow,
+    setWindowSize
+  } = useToolTipUtils();
 
   const yMaxRange = Math.max(...yAxisData.map((number) => number));
   const getMaxWidthLabel: number = xAxisData.reduce((max: number, item) => {
@@ -144,6 +157,31 @@ export default function useBarChart({
   const xLabelPaddingLeft: number =
     yAxisLegend?.length * legendSize - getMaxWidthForYAxis + horizontalScale(20);
 
+  const touchHandler = useTouchHandler({
+    onStart: ({ x }) => {
+      xAxisData.forEach((dataPoint, index) => {
+        const xForPlottedXLabel = (xScale(dataPoint) as number) + yLabelMaxLength + initialDistance;
+
+        if (
+          x < xForPlottedXLabel + barWidth + BARGRAPH_TOOLTIP_HITSLOP &&
+          x > xForPlottedXLabel - BARGRAPH_TOOLTIP_HITSLOP
+        ) {
+          setPointData({
+            x: dataPoint,
+            y: yAxisData[index].toString()
+          });
+
+          xCoordinateForDataPoint.current =
+            (xScale(dataPoint) as number) + (yLabelMaxLength + initialDistance) + barWidth / 2;
+          yCoordinateForDataPoint.current =
+            windowSize.current.y -
+            (windowSize.current.y - (graphHeight + axisPositionValue)) -
+            yScale(yAxisData[index] * animationState.current);
+        }
+      });
+    }
+  });
+
   return {
     font,
     xScale,
@@ -165,6 +203,14 @@ export default function useBarChart({
     yLabelWidth,
     canvasWidth,
     barChartWidth,
-    xLabelPaddingLeft
+    xLabelPaddingLeft,
+    touchHandler,
+    xForWindow,
+    xCoordinateForDataPoint,
+    yCoordinateForDataPoint,
+    pointData,
+    windowSize,
+    setXForWindow,
+    setWindowSize
   };
 }
