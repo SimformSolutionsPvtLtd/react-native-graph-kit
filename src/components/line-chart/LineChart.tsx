@@ -14,6 +14,7 @@ import styles from './LineChartStyles';
 import type { LineChartPropsType, LineChartYAxisProps } from './LineChartTypes';
 import { XAxisLabels, XAxisLegend, YAxisLabels, YAxisLegend, YRefLines } from './components';
 import useLineChart from './useLineChart';
+import { ToolTip } from '../tooltip';
 
 /**
  * LineChartYAxisProps represents the props for the LineChartYAxis component.
@@ -88,7 +89,14 @@ const LineChart = ({
   xLegendMarginTop,
   xLegendMarginBottom,
   yLegendMarginRight,
-  yLegendMarginLeft
+  yLegendMarginLeft,
+  toolTipLabelFontSize,
+  toolTipColor,
+  toolTipDataColor,
+  circularPointerColor,
+  toolTipHorizontalPadding,
+  toolTipFadeOutDuration,
+  displayToolTip = false
 }: LineChartPropsType) => {
   /**
    * Get the default font family from the available font families list.
@@ -140,7 +148,15 @@ const LineChart = ({
     xScaleBounds,
     xScale,
     canvasWidthHandler,
-    chartYAxisWidthStyle
+    chartYAxisWidthStyle,
+    touchHandler,
+    xForWindow,
+    xCoordinateForDataPoint,
+    yCoordinateForDataPoint,
+    pointData,
+    windowSize,
+    setXForWindow,
+    setWindowSize
   } = useLineChart({
     chartData,
     verticalLabel,
@@ -185,8 +201,11 @@ const LineChart = ({
             horizontal
             showsHorizontalScrollIndicator={false}
             style={styles().fullHeightAndWidth}
+            onMomentumScrollEnd={setXForWindow}
+            onScrollEndDrag={setXForWindow}
+            onLayout={setWindowSize}
           >
-            <Canvas style={canvasStyles}>
+            <Canvas style={canvasStyles} onTouch={displayToolTip ? touchHandler : undefined}>
               <YRefLines
                 {...{
                   yScale,
@@ -219,6 +238,27 @@ const LineChart = ({
                 start={0}
                 end={lineAnimationState}
               />
+              {displayToolTip && (
+                <ToolTip
+                  displayCircularPointer
+                  xForWindow={xForWindow.current}
+                  {...{
+                    xCoordinateForDataPoint,
+                    yCoordinateForDataPoint,
+                    pointData,
+                    labelFontFamily,
+                    xAxisLegend,
+                    yAxisLegend,
+                    windowSize,
+                    toolTipLabelFontSize,
+                    toolTipColor,
+                    toolTipDataColor,
+                    circularPointerColor,
+                    toolTipHorizontalPadding,
+                    toolTipFadeOutDuration
+                  }}
+                />
+              )}
             </Canvas>
           </ScrollView>
         </View>
