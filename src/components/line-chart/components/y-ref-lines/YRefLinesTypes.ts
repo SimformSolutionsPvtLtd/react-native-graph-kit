@@ -5,7 +5,6 @@ export type YRefLinePropsType = {
   canvasWidth: number;
   horizontalGridLineColor: Color;
   showLines: boolean;
-  xScaleBounds: readonly [number, number];
   xAxisLength?: number;
   yScale: ScaleLinear<number, number>;
   canvasWidthHandler: number;

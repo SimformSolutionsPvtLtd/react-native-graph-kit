@@ -1,6 +1,6 @@
 import type { DataSource } from '@shopify/react-native-skia';
 
-type ChartData = {
+type BarChartDataType = {
   xAxis: {
     labels: string[];
   };
@@ -10,7 +10,7 @@ type ChartData = {
 };
 
 type BarChartProps = {
-  chartData: ChartData;
+  chartData: BarChartDataType;
   xAxisLength: number;
   chartHeight?: number;
   barWidth?: number;
@@ -47,7 +47,7 @@ type BarChartProps = {
 };
 
 interface BarChartHookPropType {
-  chartData: ChartData;
+  chartData: BarChartDataType;
   chartHeight: number;
   yAxisMax?: number;
   yAxisMin?: number;
@@ -79,4 +79,4 @@ interface BarChartStylePropType {
   xLegendColor: string;
 }
 
-export { BarChartProps, ChartData, BarChartHookPropType, BarChartStylePropType };
+export { BarChartProps, BarChartDataType, BarChartHookPropType, BarChartStylePropType };

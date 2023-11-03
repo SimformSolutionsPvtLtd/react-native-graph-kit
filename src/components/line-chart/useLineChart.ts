@@ -205,7 +205,9 @@ const useLineChart = ({
    * @type {StyleProp<ViewStyle> }
    */
   const chartYAxisWidthStyle: StyleProp<ViewStyle> = {
-    width: (yAxisWidth * labelSize) / 1.7
+    // The below multiplier allow larger label size and more space.
+    // Magic Number: 1.3 is divided to handle the extra spacing in Axis Width.
+    width: (yAxisWidth * labelSize) / 1.3
   };
 
   /**
@@ -228,7 +230,6 @@ const useLineChart = ({
     canvasStyles,
     chartHeight,
     yScale,
-    xScaleBounds,
     xScale,
     canvasWidthHandler,
     chartYAxisWidthStyle
