@@ -75,7 +75,7 @@ export default function useBarChart({
     .scaleLinear()
     .domain([
       yAxisMin ?? 0,
-      (yAxisMax && yAxisMax + 20) ?? Math.max(...yAxisData.map((yDataPoint: number) => yDataPoint))
+      (yAxisMax && yAxisMax) ?? Math.max(...yAxisData.map((yDataPoint: number) => yDataPoint))
     ])
     .range([0, graphHeight]);
 
@@ -105,10 +105,13 @@ export default function useBarChart({
       .range([0, graphHeight]);
   }
 
-  const xScaleBounds = [
-    yLabelMaxLength,
-    xAxisLength ? xAxisLength * xAxisData?.length : chartWidth
-  ];
+  const checkXWidth = () => {
+    const calculateXAxisWidth = xAxisLength * xAxisData?.length + initialDistance;
+    //TODO: find out an optimal solution to rectify the static value 2730 which is the max supported canvas width
+    return calculateXAxisWidth > 2730 ? 2730 : xAxisLength * xAxisData?.length;
+  };
+
+  const xScaleBounds = [yLabelMaxLength, xAxisLength ? checkXWidth() - barWidth * 2 : chartWidth];
 
   const xScale = d3
     .scalePoint()
@@ -144,8 +147,6 @@ export default function useBarChart({
     return skiaPath;
   };
 
-  const path = useComputedValue(createPath, [animationState, xAxisData]);
-
   const barChartHeight: number = verticalLabel
     ? canvasHeightWithVerticalLabel
     : canvasHeightWithHorizontalLabel + initialSpace;
@@ -153,9 +154,22 @@ export default function useBarChart({
     canvasHeight - 2 * chartBottomMargin - yScale.ticks()[0] + axisPositionValue;
   const yLabelWidth: number = yAxisLegend?.length * legendSize;
   const canvasWidth: number = getMaxWidthForYAxis + horizontalScale(20);
-  const barChartWidth: number = xAxisLength ? xAxisLength * (xAxisData?.length + 1) : chartWidth;
+  const barChartWidth: number = xAxisLength ? checkXWidth() : chartWidth;
   const xLabelPaddingLeft: number =
     yAxisLegend?.length * legendSize - getMaxWidthForYAxis + horizontalScale(20);
+  const xLabelMarginLeft: number = getMaxWidthForYAxis + canvasWidth;
+
+  const path = useComputedValue(createPath, [
+    animationState,
+    xAxisData,
+    chartHeight,
+    barWidth,
+    yAxisMin,
+    yAxisMin,
+    xAxisLength,
+    barRadius,
+    initialDistance
+  ]);
 
   const touchHandler = useTouchHandler({
     onStart: ({ x }) => {
@@ -211,6 +225,7 @@ export default function useBarChart({
     pointData,
     windowSize,
     setXForWindow,
-    setWindowSize
+    setWindowSize,
+    xLabelMarginLeft
   };
 }
