@@ -11,7 +11,7 @@ type BarChartDataType = {
 
 type BarChartProps = {
   chartData: BarChartDataType;
-  xAxisLength: number;
+  xAxisLength?: number;
   chartHeight?: number;
   barWidth?: number;
   barColor?: string;
@@ -77,6 +77,7 @@ interface BarChartStylePropType {
   xLegendMarginTop: number;
   xLegendMarginBottom: number;
   xLegendColor: string;
+  xLabelMarginLeft: number;
 }
 
 export { BarChartProps, BarChartDataType, BarChartHookPropType, BarChartStylePropType };
