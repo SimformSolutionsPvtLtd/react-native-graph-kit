@@ -1,20 +1,14 @@
-import {
-  Canvas,
-  Path,
-  SkFont,
-  listFontFamilies,
-  matchFont,
-  useFont
-} from '@shopify/react-native-skia';
+import { Canvas, Path, SkFont, matchFont, useFont } from '@shopify/react-native-skia';
 import React from 'react';
-import { Platform, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { DEFAULT_LABEL_SIZE } from '../../constants';
+import { useDefaultFont } from '../../hooks';
 import { Colors } from '../../theme';
+import { ToolTip } from '../tooltip';
 import styles from './LineChartStyles';
 import type { LineChartPropsType, LineChartYAxisProps } from './LineChartTypes';
 import { XAxisLabels, XAxisLegend, YAxisLabels, YAxisLegend, YRefLines } from './components';
 import useLineChart from './useLineChart';
-import { ToolTip } from '../tooltip';
 
 /**
  * LineChartYAxisProps represents the props for the LineChartYAxis component.
@@ -66,7 +60,7 @@ const LineChartYAxis = ({
  * @returns The LineChart Component to display a chart in the available metrics of the view.
  */
 const LineChart = ({
-  chartData,
+  chartData = { xAxis: { labels: [] }, yAxis: { datasets: [] } },
   xAxisLength,
   yAxisMin,
   yAxisMax,
@@ -98,30 +92,7 @@ const LineChart = ({
   toolTipFadeOutDuration,
   displayToolTip = false
 }: LineChartPropsType) => {
-  /**
-   * Get the default font family from the available font families list.
-   * @returns {string[]}
-   */
-  const defaultFont = listFontFamilies();
-
-  /**
-   * Select the appropriate font family based on the platform.
-   * On iOS, Android, or any other platform, it defaults to the first font in the list.
-   * @type {string}
-   */
-  const fontFamily: string = Platform.select<string>({
-    ios: defaultFont?.[0],
-    android: defaultFont?.[0],
-    default: defaultFont?.[0]
-  });
-
-  /**
-   * Create a fontStyle object with the selected fontFamily and fontSize.
-   */
-  const fontStyle = {
-    fontFamily,
-    fontSize: labelSize
-  };
+  const { fontStyle } = useDefaultFont({ labelSize: labelSize });
 
   /**
    * Get the user-added font family if available, or use the matched font based on the fontStyle.

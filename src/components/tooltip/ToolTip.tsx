@@ -36,7 +36,9 @@ const ToolTip = ({
     xCordForBottomText,
     yCordForBottomText,
     tooltipHeight,
-    opacity
+    opacity,
+    labelForX,
+    labelForY
   } = useToolTip({
     labelFontFamily,
     xAxisLegend,
@@ -71,14 +73,14 @@ const ToolTip = ({
       <Text
         x={xCordForTopText}
         y={yCordForTopText}
-        text={`${xAxisLegend}: ${pointData.x}`}
+        text={`${labelForX}: ${pointData.x}`}
         font={font}
         color={toolTipDataColor}
       />
       <Text
         x={xCordForBottomText}
         y={yCordForBottomText}
-        text={`${yAxisLegend}: ${pointData.y}`}
+        text={`${labelForY}: ${pointData.y}`}
         font={font}
         color={toolTipDataColor}
       />

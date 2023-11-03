@@ -30,12 +30,14 @@ const useToolTip = ({
   const { fontStyle } = useDefaultFont({ labelSize: toolTipLabelFontSize });
   const userAddedFont = useFont(labelFontFamily, toolTipLabelFontSize);
   const font: SkFont | null = labelFontFamily ? userAddedFont : matchFont(fontStyle);
+  const labelForX = xAxisLegend || 'X';
+  const labelForY = yAxisLegend || 'Y';
   const longestFont =
     font &&
-    font.measureText(`${xAxisLegend}: ${pointData.x}`).width >
-      font.measureText(`${yAxisLegend}: ${pointData.y}`).width
-      ? `${xAxisLegend}: ${pointData.x}`
-      : `${yAxisLegend}: ${pointData.y}`;
+    font.measureText(`${labelForX}: ${pointData.x}`).width >
+      font.measureText(`${labelForY}: ${pointData.y}`).width
+      ? `${labelForX}: ${pointData.x}`
+      : `${labelForY}: ${pointData.y}`;
   const tooltipWidth = font ? font.measureText(longestFont).width + toolTipHorizontalPadding : 0;
   const halfToolTipWidth = tooltipWidth / 2;
   const tooltipHeight = 3 * toolTipLabelFontSize;
@@ -149,7 +151,9 @@ const useToolTip = ({
     xCordForBottomText,
     yCordForBottomText,
     tooltipHeight,
-    opacity
+    opacity,
+    labelForX,
+    labelForY
   };
 };
 

@@ -9,8 +9,7 @@ const styles = (params: LineChartStylesType = {}) => {
       backgroundColor: chartBackgroundColor
     },
     fullHeightAndWidth: {
-      height: '100%',
-      width: '100%'
+      flex: 1
     },
     chartContainer: {
       flex: 1,
