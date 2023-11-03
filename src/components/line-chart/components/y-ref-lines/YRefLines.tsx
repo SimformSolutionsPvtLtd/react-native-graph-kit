@@ -20,10 +20,9 @@ const YRefLines = ({
   yScale,
   showLines,
   horizontalGridLineColor,
-  xScaleBounds,
   canvasWidth,
   xAxisLength,
-  canvasWidthHandler,
+  canvasWidthHandler
 }: YRefLinePropsType): JSX.Element => {
   // If showLines is false, render nothing
   if (!showLines) {
@@ -43,9 +42,8 @@ const YRefLines = ({
             color={horizontalGridLineColor}
             style="stroke"
             strokeWidth={1}
-            path={`M${xScaleBounds[0]},${yPoint} L${
-              xAxisLength ? canvasWidthHandler : canvasWidth
-            },${yPoint}`}>
+            path={`M10,${yPoint} L${xAxisLength ? canvasWidthHandler : canvasWidth},${yPoint}`}
+          >
             <DashPathEffect intervals={[5, 10]} />
           </Path>
         );

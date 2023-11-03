@@ -145,7 +145,6 @@ const LineChart = ({
     canvasStyles,
     chartHeight,
     yScale,
-    xScaleBounds,
     xScale,
     canvasWidthHandler,
     chartYAxisWidthStyle,
@@ -211,7 +210,6 @@ const LineChart = ({
                   yScale,
                   showLines,
                   horizontalGridLineColor,
-                  xScaleBounds,
                   xAxisLength,
                   canvasWidth,
                   canvasWidthHandler

@@ -30,7 +30,8 @@ const XAxisLabels = ({
       const labelLength = chartFont?.measureText(label);
       // Calculate x and y positions based on label and orientation
       const xPosition =
-        xScale(label) ?? 0 - (verticalLabel ? labelLength?.width! : label.length * (labelSize / 4));
+        (xScale(label) ?? 0) -
+        (verticalLabel ? labelLength?.width! : label.length * (labelSize / 4));
       const yPosition = verticalLabel ? chartHeight : canvasHeight - labelSize / 2;
 
       return (

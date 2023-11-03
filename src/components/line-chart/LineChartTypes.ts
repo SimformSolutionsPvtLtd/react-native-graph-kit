@@ -56,7 +56,6 @@ export interface LineChartHookReturnType {
   canvasStyles: StyleProp<ViewStyle>;
   chartHeight: number;
   yScale: ScaleLinear<number, number, never>;
-  xScaleBounds: [number, number];
   xScale: ScalePoint<string>;
   canvasWidthHandler: number;
   chartYAxisWidthStyle: StyleProp<ViewStyle>;
