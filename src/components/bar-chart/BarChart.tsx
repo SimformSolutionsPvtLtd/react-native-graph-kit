@@ -67,8 +67,7 @@ const BarChart = ({
     pointData,
     windowSize,
     setXForWindow,
-    setWindowSize,
-    xLabelMarginLeft
+    setWindowSize
   } = useBarChart({
     chartData,
     chartHeight,
@@ -102,8 +101,7 @@ const BarChart = ({
     xLabelPaddingLeft,
     xLegendMarginTop,
     xLegendMarginBottom,
-    xLegendColor,
-    xLabelMarginLeft
+    xLegendColor
   });
 
   return (

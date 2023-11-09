@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View } from 'react-native';
-import { BarChart, LineChart } from 'react-native-graph-kit';
-import { data } from './constants';
+import { BarChart, LineChart } from '../../src/components';
 import { ApplicationStyles, Colors } from './theme';
+import { generateDummyData } from './utils';
 
 const App = () => {
+  const [data, setData] = useState(generateDummyData(8));
+
+  const myOperation = () => {
+    const numberOfData = Math.floor(Math.random() * 10);
+    const updateData = generateDummyData(numberOfData > 3 ? numberOfData : 4);
+    setData(updateData);
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(myOperation, 3000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   return (
     <SafeAreaView style={ApplicationStyles.screen}>
       <View style={ApplicationStyles.chartContainer}>
