@@ -1,2 +1,2 @@
-export * from './Strings';
 export * from './StaticData';
+export * from './Strings';

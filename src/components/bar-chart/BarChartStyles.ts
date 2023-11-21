@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import type { BarChartStylePropType } from './BarChartTypes';
 
 export const styles = ({
@@ -12,10 +12,10 @@ export const styles = ({
   yLegendColor,
   canvasWidth,
   barChartWidth,
+  xLabelPaddingLeft,
   xLegendMarginTop,
   xLegendMarginBottom,
-  xLegendColor,
-  xLabelMarginLeft
+  xLegendColor
 }: BarChartStylePropType) =>
   StyleSheet.create({
     flexRow: {
@@ -44,7 +44,9 @@ export const styles = ({
       width: yLabelWidth
     },
     xAxisLabel: {
-      paddingLeft: xLabelMarginLeft
+      alignSelf: 'flex-end',
+      paddingLeft: xLabelPaddingLeft,
+      width: Dimensions.get('window').width
     },
     barChartWrapper: {
       height: barChartHeight
