@@ -161,7 +161,7 @@ const useLineChart = ({
       ? canvasWidthHandler - (initialDistance ?? 0)
       : canvasWidth -
         yAxisWidth * X_AXIS_LABEL_WIDTH_RECTIFIER -
-        labelSize * 1.1 * labelLengthValueMultiplier
+        labelSize * 1.5 * labelLengthValueMultiplier
   ];
 
   /**
@@ -203,13 +203,25 @@ const useLineChart = ({
   }));
 
   /**
+   * The width of the screen canvas, which is calculated based on various factors.
+   * @type {number}
+   * @description This constant represents the width of the screen canvas and is determined by subtracting a combination
+   * of values from the `canvasWidth`. It is calculated as follows:
+   * - Subtracting `yAxisWidth * 10`: This accounts for the width taken by the yAxis content, multiplied by 10 units.
+   * - Subtracting `labelSize * 1.5 * (yAxisLegend ? 3 : 0.5)`: This accounts for the width taken by labels, which
+   *   is multiplied by 1.5 units and further adjusted based on whether `yAxisLegend` is true (multiplied by 3) or
+   *   false (multiplied by 0.5).
+   *
+   * */
+  const screenCanvasWidth: number =
+    canvasWidth - yAxisWidth * 10 - labelSize * 1.5 * (yAxisLegend ? 3 : 0.5);
+
+  /**
    * Defines styles for the canvas.
    * @type {StyleProp<ViewStyle>}
    */
   const canvasStyles: StyleProp<ViewStyle> = {
-    width: xAxisLength
-      ? canvasWidthHandler
-      : canvasWidth - yAxisWidth * 10 - labelSize * (yAxisLegend ? 3 : 0.5),
+    width: xAxisLength ? canvasWidthHandler : screenCanvasWidth,
     height: canvasHeight
   };
 
