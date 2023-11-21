@@ -40,7 +40,6 @@ type BarChartProps = {
   toolTipLabelFontSize?: number;
   toolTipColor?: string;
   toolTipDataColor?: string;
-  circularPointerColor?: string;
   toolTipHorizontalPadding?: number;
   toolTipFadeOutDuration?: number;
   displayToolTip?: boolean;
