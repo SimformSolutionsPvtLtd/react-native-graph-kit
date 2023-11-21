@@ -212,7 +212,7 @@ export default App;
 | toolTipDataColor         | #FFFFFF | string  | Tooltip data color                      | ✔️       | ✔️        |
 | toolTipHorizontalPadding | 20      | number  | Tooltip padding                         | ✔️       | ✔️        |
 | toolTipFadeOutDuration   | 4000    | number  | Duration is ms to fade out tooltip      | ✔️       | ✔️        |
-| circularPointerColor     | #000000 | string  | Color of circular pointer for LineChart | ✔️       | ✔️        |
+| circularPointerColor     | #000000 | string  | Color of circular pointer for LineChart | ⤫        | ✔️        |
 
 ---
 

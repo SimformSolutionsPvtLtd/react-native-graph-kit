@@ -38,7 +38,6 @@ const BarChart = ({
   toolTipLabelFontSize,
   toolTipColor,
   toolTipDataColor,
-  circularPointerColor,
   toolTipHorizontalPadding,
   toolTipFadeOutDuration,
   displayToolTip = false
@@ -191,7 +190,6 @@ const BarChart = ({
                     toolTipLabelFontSize,
                     toolTipColor,
                     toolTipDataColor,
-                    circularPointerColor,
                     toolTipHorizontalPadding,
                     toolTipFadeOutDuration
                   }}

@@ -159,42 +159,56 @@ export default function useBarChart({
     yAxisLegend?.length * legendSize - getMaxWidthForYAxis + horizontalScale(20);
   const xLabelMarginLeft: number = getMaxWidthForYAxis + canvasWidth;
 
+  const touchHandler = useTouchHandler(
+    {
+      onStart: ({ x }) => {
+        xAxisData.forEach((dataPoint, index) => {
+          const xForPlottedXLabel =
+            (xScale(dataPoint) as number) + yLabelMaxLength + initialDistance;
+
+          if (
+            x < xForPlottedXLabel + barWidth + BARGRAPH_TOOLTIP_HITSLOP &&
+            x > xForPlottedXLabel - BARGRAPH_TOOLTIP_HITSLOP
+          ) {
+            setPointData({
+              x: dataPoint,
+              y: yAxisData[index].toString()
+            });
+
+            xCoordinateForDataPoint.current =
+              (xScale(dataPoint) as number) + (yLabelMaxLength + initialDistance) + barWidth / 2;
+            yCoordinateForDataPoint.current =
+              windowSize.current.y -
+              (windowSize.current.y - (graphHeight + axisPositionValue)) -
+              yScale(yAxisData[index] * animationState.current);
+          }
+        });
+      }
+    },
+    [
+      animationState,
+      xAxisData,
+      chartHeight,
+      barWidth,
+      yAxisMin,
+      yAxisMax,
+      xAxisLength,
+      barRadius,
+      initialDistance
+    ]
+  );
+
   const path = useComputedValue(createPath, [
     animationState,
     xAxisData,
     chartHeight,
     barWidth,
     yAxisMin,
-    yAxisMin,
+    yAxisMax,
     xAxisLength,
     barRadius,
     initialDistance
   ]);
-
-  const touchHandler = useTouchHandler({
-    onStart: ({ x }) => {
-      xAxisData.forEach((dataPoint, index) => {
-        const xForPlottedXLabel = (xScale(dataPoint) as number) + yLabelMaxLength + initialDistance;
-
-        if (
-          x < xForPlottedXLabel + barWidth + BARGRAPH_TOOLTIP_HITSLOP &&
-          x > xForPlottedXLabel - BARGRAPH_TOOLTIP_HITSLOP
-        ) {
-          setPointData({
-            x: dataPoint,
-            y: yAxisData[index].toString()
-          });
-
-          xCoordinateForDataPoint.current =
-            (xScale(dataPoint) as number) + (yLabelMaxLength + initialDistance) + barWidth / 2;
-          yCoordinateForDataPoint.current =
-            windowSize.current.y -
-            (windowSize.current.y - (graphHeight + axisPositionValue)) -
-            yScale(yAxisData[index] * animationState.current);
-        }
-      });
-    }
-  });
 
   return {
     font,
