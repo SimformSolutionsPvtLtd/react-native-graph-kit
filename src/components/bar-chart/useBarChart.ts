@@ -13,7 +13,7 @@ import * as d3 from 'd3';
 import { useEffect } from 'react';
 import { Easing } from 'react-native';
 import { useDefaultFont } from '../../hooks';
-import { chartWidth, horizontalScale, screenHeight } from '../../theme';
+import { chartWidth, Colors, horizontalScale, screenHeight } from '../../theme';
 import type { BarChartHookPropType } from './BarChartTypes';
 import { useToolTipUtils } from '../tooltip';
 import { BARGRAPH_TOOLTIP_HITSLOP } from '../../constants';
@@ -27,11 +27,14 @@ export default function useBarChart({
   barRadius,
   labelSize,
   barWidth,
-  xAxisLength,
+  barGap,
   initialDistance,
   verticalLabel,
   yAxisLegend,
-  legendSize
+  legendSize,
+  showAnimation,
+  xLegendStyles,
+  yLegendStyles
 }: BarChartHookPropType) {
   const chartBottomMargin = 14;
   const { fontStyle } = useDefaultFont({ labelSize });
@@ -106,12 +109,12 @@ export default function useBarChart({
   }
 
   const checkXWidth = () => {
-    const calculateXAxisWidth = xAxisLength * xAxisData?.length + initialDistance;
+    const calculateXAxisWidth = barGap * xAxisData?.length + initialDistance;
     //TODO: find out an optimal solution to rectify the static value 2730 which is the max supported canvas width
-    return calculateXAxisWidth > 2730 ? 2730 : xAxisLength * xAxisData?.length;
+    return calculateXAxisWidth > 2730 ? 2730 : barGap * xAxisData?.length;
   };
 
-  const xScaleBounds = [yLabelMaxLength, xAxisLength ? checkXWidth() - barWidth * 2 : chartWidth];
+  const xScaleBounds = [yLabelMaxLength, barGap ? checkXWidth() - barWidth * 2 : chartWidth];
 
   const xScale = d3
     .scalePoint()
@@ -127,7 +130,7 @@ export default function useBarChart({
   const animate = () => {
     animationState.current = 0;
     runTiming(animationState, 1, {
-      duration: 1500,
+      duration: showAnimation ? 1500 : 0,
       easing: Easing.inOut(Easing.exp)
     });
   };
@@ -147,6 +150,22 @@ export default function useBarChart({
     return skiaPath;
   };
 
+  const createRadius = () => {
+    const radiusPath = Skia.Path.Make();
+
+    xAxisData?.forEach((dataPoint: string, index) => {
+      const rect = Skia.XYWHRect(
+        (xScale(dataPoint) as number) + yLabelMaxLength + initialDistance,
+        graphHeight + axisPositionValue,
+        barWidth,
+        (yScale(yAxisData[index] * animationState.current) * -1) / 2
+      );
+      const rRect = Skia.RRectXY(rect, 0, 0);
+      radiusPath.addRRect(rRect);
+    });
+    return radiusPath;
+  };
+
   const barChartHeight: number = verticalLabel
     ? canvasHeightWithVerticalLabel
     : canvasHeightWithHorizontalLabel + initialSpace;
@@ -154,7 +173,7 @@ export default function useBarChart({
     canvasHeight - 2 * chartBottomMargin - yScale.ticks()[0] + axisPositionValue;
   const yLabelWidth: number = yAxisLegend?.length * legendSize;
   const canvasWidth: number = getMaxWidthForYAxis + horizontalScale(20);
-  const barChartWidth: number = xAxisLength ? checkXWidth() : chartWidth;
+  const barChartWidth: number = barGap ? checkXWidth() : chartWidth;
   const xLabelPaddingLeft: number =
     yAxisLegend?.length * legendSize - getMaxWidthForYAxis + horizontalScale(20);
   const xLabelMarginLeft: number = getMaxWidthForYAxis + canvasWidth;
@@ -192,7 +211,7 @@ export default function useBarChart({
       barWidth,
       yAxisMin,
       yAxisMax,
-      xAxisLength,
+      barGap,
       barRadius,
       initialDistance
     ]
@@ -205,10 +224,46 @@ export default function useBarChart({
     barWidth,
     yAxisMin,
     yAxisMax,
-    xAxisLength,
+    barGap,
     barRadius,
     initialDistance
   ]);
+
+  const radiusPath = useComputedValue(createRadius, [
+    animationState,
+    xAxisData,
+    chartHeight,
+    barWidth,
+    yAxisMin,
+    yAxisMax,
+    barGap,
+    barRadius,
+    initialDistance
+  ]);
+
+  const xAxisLegendStyles = {
+    marginTop: xLegendStyles['marginTop'] ?? 0,
+    marginBottom: xLegendStyles['marginBottom'] ?? 0,
+    borderWidth: xLegendStyles['borderWidth'] ?? 0,
+    borderColor: xLegendStyles['borderColor'] ?? Colors.black,
+    marginRight: xLegendStyles['marginRight'] ?? 0,
+    marginLeft: xLegendStyles['marginLeft'] ?? 0,
+    color: xLegendStyles['color'] ?? Colors.black,
+    fontWeight: xLegendStyles['fontWeight'] ?? '300',
+    fontFamily: xLegendStyles['fontFamily'] ?? undefined
+  };
+
+  const yAxisLegendStyles = {
+    marginTop: yLegendStyles['marginTop'] ?? 0,
+    marginBottom: yLegendStyles['marginBottom'] ?? 0,
+    borderWidth: yLegendStyles['borderWidth'] ?? 0,
+    borderColor: yLegendStyles['borderColor'] ?? Colors.black,
+    marginRight: yLegendStyles['marginRight'] ?? 0,
+    marginLeft: yLegendStyles['marginLeft'] ?? 0,
+    color: yLegendStyles['color'] ?? Colors.black,
+    fontWeight: yLegendStyles['fontWeight'] ?? '300',
+    fontFamily: yLegendStyles['fontFamily'] ?? undefined
+  };
 
   return {
     font,
@@ -240,6 +295,9 @@ export default function useBarChart({
     windowSize,
     setXForWindow,
     setWindowSize,
-    xLabelMarginLeft
+    xLabelMarginLeft,
+    yAxisLegendStyles,
+    xAxisLegendStyles,
+    radiusPath
   };
 }

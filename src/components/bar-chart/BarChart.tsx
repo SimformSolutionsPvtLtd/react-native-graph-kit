@@ -10,7 +10,7 @@ import { ToolTip } from '../tooltip';
 
 const BarChart = ({
   chartData,
-  xAxisLength = 50,
+  barGap = 50,
   chartHeight = 500,
   barWidth = 20,
   barColor = Colors.cherryRed,
@@ -29,18 +29,15 @@ const BarChart = ({
   yAxisLegend = '',
   xAxisLegend = '',
   legendSize = 15,
-  xLegendMarginTop = 0,
-  xLegendMarginBottom = 0,
-  yLegendMarginLeft = 0,
-  yLegendMarginRight = 0,
-  xLegendColor = Colors.black,
-  yLegendColor = Colors.black,
   toolTipLabelFontSize,
   toolTipColor,
   toolTipDataColor,
   toolTipHorizontalPadding,
   toolTipFadeOutDuration,
-  displayToolTip = false
+  displayToolTip = false,
+  showAnimation = true,
+  xLegendStyles = {},
+  yLegendStyles = {}
 }: BarChartProps) => {
   const {
     font,
@@ -67,7 +64,10 @@ const BarChart = ({
     windowSize,
     setXForWindow,
     setWindowSize,
-    xLabelMarginLeft
+    xLabelMarginLeft,
+    yAxisLegendStyles,
+    xAxisLegendStyles,
+    radiusPath
   } = useBarChart({
     chartData,
     chartHeight,
@@ -77,11 +77,14 @@ const BarChart = ({
     barRadius,
     labelSize,
     barWidth,
-    xAxisLength,
+    barGap,
     initialDistance,
     yAxisLegend,
     legendSize,
-    verticalLabel
+    verticalLabel,
+    showAnimation,
+    xLegendStyles,
+    yLegendStyles
   });
 
   if (font === null) {
@@ -91,17 +94,11 @@ const BarChart = ({
     barChartHeight,
     chartBackGroundColor,
     barLegendHeight,
-    yLegendMarginRight,
-    yLegendMarginLeft,
     yLabelWidth,
     legendSize,
-    yLegendColor,
     canvasWidth,
     barChartWidth,
     xLabelPaddingLeft,
-    xLegendMarginTop,
-    xLegendMarginBottom,
-    xLegendColor,
     xLabelMarginLeft
   });
 
@@ -113,7 +110,7 @@ const BarChart = ({
         {yAxisLegend && (
           <View style={[style.container, style.yAxisLegendWrapper]}>
             <View style={style.yLabelWrapper}>
-              <RNText style={style.yLegendTextStyle}>{yAxisLegend}</RNText>
+              <RNText style={[style.yLegendTextStyle, yAxisLegendStyles]}>{yAxisLegend}</RNText>
             </View>
           </View>
         )}
@@ -161,6 +158,7 @@ const BarChart = ({
                   }}
                 />
               )}
+              <Path path={radiusPath} color={barColor} />
               <Path path={path} color={barColor} />
               <XAxisLabels
                 {...{
@@ -202,7 +200,10 @@ const BarChart = ({
       <View style={[style.fullWidth, style.chartBackGroundColor]}>
         {xAxisLegend && (
           <View style={style.xAxisLabel}>
-            <RNText numberOfLines={1} style={[style.alignCenter, style.xLegendText]}>
+            <RNText
+              numberOfLines={1}
+              style={[style.alignCenter, style.xLegendText, xAxisLegendStyles]}
+            >
               {xAxisLegend}
             </RNText>
           </View>

@@ -126,7 +126,7 @@ const App = () => (
       <BarChart
         chartData={data}
         barWidth={30}
-        xAxisLength={70}
+        barGap={70}
         horizontalGridLineColor={'grey'}
         chartHeight={300}
         yAxisMax={1000}
@@ -178,7 +178,7 @@ export default App;
 | lineColor               | #DE5E69     | ColorValue                            | The line color of LineChart                          | ⤫        | ✔️        |
 | barWidth                | 20          | number                                | The width of the bars in BarChart                    | ✔️       | ⤫         |
 | barColor                | #DE5E69     | ColorValue                            | The color of the bars in BarChart                    | ✔️       | ⤫         |
-| barRadius               | 0           | number                                | The borderRadius of the bars in BarChart             | ✔️       | ⤫         |
+| barRadius               | 0           | number                                | The borderRadius of the bars in BarChart from top    | ✔️       | ⤫         |
 | labelSize               | 18          | number                                | The fontsize of labels on the chart                  | ✔️       | ✔️        |
 | labelColor              | #000000     | ColorValue                            | The font color of chart labels                       | ✔️       | ✔️        |
 | labelFontFamily         | System Font | ColorValue                            | The font path that will be applied to chart labels   | ✔️       | ✔️        |
@@ -186,7 +186,7 @@ export default App;
 | yAxisMin                | 0           | number                                | The minimum value for the YAxis Plotting             | ✔️       | ✔️        |
 | yAxisMax                | auto        | number                                | The minimum value for the YAxis Plotting             | ✔️       | ✔️        |
 | initialDistance         | 10          | number                                | The initial distance of chart from the Y Axis Labels | ✔️       | ✔️        |
-| xAxisLength             | auto        | number                                | Manual distance between x Axis Plotting              | ✔️       | ✔️        |
+| xAxisLength             | auto        | number                                | Manual distance between x Axis Plotting              | ⤫        | ✔️        |
 | verticalLabel           | false       | boolean                               | Handle rotation of X-Axis Labels                     | ✔️       | ✔️        |
 | verticalLabelHeight     | auto        | number                                | Desired height of the X-Axis                         | ⤫        | ✔️        |
 | chartBackgroundColor    | #FFFFFF     | Color                                 | Chart background color                               | ✔️       | ✔️        |
@@ -197,8 +197,9 @@ export default App;
 | xLegendMarginBottom     | 5           | number                                | Bottom Margin of Chart X Axis Legend                 | ✔️       | ✔️        |
 | yLegendMarginRight      | undefined   | number                                | Margin Right of Y Axis Legend                        | ✔️       | ✔️        |
 | yLegendMarginLeft       | undefined   | number                                | Margin Left of Y Axis Legend                         | ✔️       | ✔️        |
-| xLegendColor            | #949494     | ColorValue                            | X Axis Legend color                                  | ✔️       | ✔️        |
-| yLegendColor            | #949494     | ColorValue                            | Y Axis Legend color                                  | ✔️       | ✔️        |
+| xLegendStyles           | Default     | TextStyle                             | X Axis Legend styles                                 | ✔️       | ✔️        |
+| yLegendStyles           | Default     | TextStyle                             | Y Axis Legend styles                                 | ✔️       | ✔️        |
+| barGap                  | 50          | number                                | X Axis length covered by bars                        | ✔️       | ⤫         |
 
 ---
 

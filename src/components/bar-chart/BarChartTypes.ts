@@ -1,4 +1,5 @@
 import type { DataSource } from '@shopify/react-native-skia';
+import type { TextStyle } from 'react-native';
 
 type BarChartDataType = {
   xAxis: {
@@ -9,73 +10,73 @@ type BarChartDataType = {
   };
 };
 
+type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] extends N
+  ? Acc[number]
+  : Enumerate<N, [...Acc, Acc['length']]>;
+
+export type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>;
+
 type BarChartProps = {
   chartData: BarChartDataType;
-  xAxisLength?: number;
-  chartHeight?: number;
-  barWidth?: number;
+  barGap?: Range<0, 1000>;
+  chartHeight?: Range<0, 1000>;
+  barWidth?: Range<0, 200>;
   barColor?: string;
-  barRadius?: number;
-  labelSize?: number;
+  barRadius?: Range<0, 200>;
+  labelSize?: Range<0, 50>;
   labelSelectedColor?: string;
   labelColor?: string;
   labelFontFamily?: DataSource;
   showLines?: boolean;
-  lineHeight?: number;
+  lineHeight?: Range<0, 4>;
   verticalLabel?: boolean;
   horizontalGridLineColor?: string;
   yAxisMax?: number;
   chartBackGroundColor?: string;
-  initialDistance?: number;
+  initialDistance?: Range<0, 150>;
   yAxisMin?: number;
   yAxisLegend?: string;
   xAxisLegend?: string;
   legendSize?: number;
-  xLegendMarginTop?: number;
-  xLegendMarginBottom?: number;
-  yLegendMarginLeft?: number;
-  yLegendMarginRight?: number;
-  xLegendColor?: string;
-  yLegendColor?: string;
   toolTipLabelFontSize?: number;
   toolTipColor?: string;
   toolTipDataColor?: string;
   toolTipHorizontalPadding?: number;
   toolTipFadeOutDuration?: number;
   displayToolTip?: boolean;
+  showAnimation?: boolean;
+  xLegendStyles?: TextStyle;
+  yLegendStyles?: TextStyle;
 };
 
 interface BarChartHookPropType {
   chartData: BarChartDataType;
-  chartHeight: number;
+  chartHeight?: Range<0, 1000>;
   yAxisMax?: number;
   yAxisMin?: number;
   labelFontFamily?: DataSource;
   barRadius: number;
-  labelSize: number;
+  labelSize: Range<0, 50>;
   barWidth: number;
-  xAxisLength: number;
-  initialDistance: number;
+  barGap: Range<0, 1000>;
+  initialDistance: Range<0, 150>;
   yAxisLegend: string;
   legendSize: number;
   verticalLabel: boolean;
+  showAnimation?: boolean;
+  yLegendStyles: TextStyle;
+  xLegendStyles: TextStyle;
 }
 
 interface BarChartStylePropType {
   barChartHeight: number;
   chartBackGroundColor: string;
   barLegendHeight: number;
-  yLegendMarginRight: number;
-  yLegendMarginLeft: number;
   yLabelWidth: number;
   legendSize: number;
-  yLegendColor: string;
   canvasWidth: number;
   barChartWidth: number;
   xLabelPaddingLeft: number;
-  xLegendMarginTop: number;
-  xLegendMarginBottom: number;
-  xLegendColor: string;
   xLabelMarginLeft: number;
 }
 
