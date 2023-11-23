@@ -5,16 +5,10 @@ export const styles = ({
   barChartHeight,
   chartBackGroundColor,
   barLegendHeight,
-  yLegendMarginRight,
-  yLegendMarginLeft,
   yLabelWidth,
   legendSize,
-  yLegendColor,
   canvasWidth,
   barChartWidth,
-  xLegendMarginTop,
-  xLegendMarginBottom,
-  xLegendColor,
   xLabelMarginLeft
 }: BarChartStylePropType) =>
   StyleSheet.create({
@@ -50,13 +44,10 @@ export const styles = ({
       height: barChartHeight
     },
     yAxisLegendWrapper: {
-      height: barLegendHeight,
-      marginRight: yLegendMarginRight,
-      marginLeft: yLegendMarginLeft
+      height: barLegendHeight
     },
     yLegendTextStyle: {
-      fontSize: legendSize,
-      color: yLegendColor
+      fontSize: legendSize
     },
     canvasWidth: {
       width: canvasWidth
@@ -69,9 +60,6 @@ export const styles = ({
       backgroundColor: chartBackGroundColor
     },
     xLegendText: {
-      fontSize: legendSize,
-      marginTop: xLegendMarginTop,
-      marginBottom: xLegendMarginBottom,
-      color: xLegendColor
+      fontSize: legendSize
     }
   });

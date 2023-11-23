@@ -11,7 +11,7 @@ const App = () => {
         <BarChart
           chartData={data}
           barWidth={30}
-          xAxisLength={70}
+          barGap={70}
           horizontalGridLineColor={Colors.grey}
           initialDistance={5}
           chartHeight={300}
