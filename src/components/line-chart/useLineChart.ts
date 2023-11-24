@@ -53,7 +53,8 @@ const useLineChart = ({
   xAxisLength,
   yAxisMin,
   yAxisMax,
-  yAxisLegend
+  yAxisLegend,
+  showAnimation
 }: LineChartHookPropsType): LineChartHookReturnType => {
   const data = chartData.yAxis.datasets;
   const maxYAxisNumberValue = findMaxNumber(data);
@@ -102,7 +103,7 @@ const useLineChart = ({
    * Function to animate the line.
    */
   const animateLine = () => {
-    lineAnimationState.current = 0;
+    lineAnimationState.current = showAnimation ? 0 : 1;
     runTiming(lineAnimationState, 1, { duration: LINE_ANIMATION_TIME }, () => {
       isLineAnimationRunning.current = false;
     });
@@ -141,7 +142,7 @@ const useLineChart = ({
    * @type {number}
    */
   const chartHeight: number = verticalLabel
-    ? canvasHeight - (verticalLabelHeight ? verticalLabelHeight : maxWidthXLabel)
+    ? canvasHeight - (verticalLabelHeight ? verticalLabelHeight : maxWidthXLabel + 5)
     : canvasHeight - labelSize * CHART_X_LABEL_HEIGHT_RECTIFIER;
 
   /**

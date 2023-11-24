@@ -1,6 +1,5 @@
 import { Rect } from '@shopify/react-native-skia';
 import React from 'react';
-import { moderateScale } from '../../../../theme';
 import type { YRefLinesProps } from './YRefLinesTypes';
 
 const YRefLines = ({
@@ -16,10 +15,10 @@ const YRefLines = ({
   initialDistance,
   yLabelMaxLength
 }: YRefLinesProps) => {
-  const startXPosition = xScale?.(xAxisData?.[0]);
+  const startXPosition = xScale(xAxisData?.[0]);
   const endXPosition = xScale(xAxisData?.[xAxisData?.length - 1]);
-  const startX: number = (startXPosition as number) + yLabelMaxLength;
-  const endX: number = (endXPosition as number) + barWidth + moderateScale(2);
+  const startX: number = (startXPosition as number) + yLabelMaxLength + initialDistance;
+  const endX: number = (endXPosition as number) + barWidth + initialDistance;
 
   return (
     <>
@@ -28,9 +27,9 @@ const YRefLines = ({
         return (
           <Rect
             key={`y-grid-${index}`}
-            x={startX + initialDistance}
+            x={startX}
             y={yPoint}
-            width={endX - startX}
+            width={endX - startX + initialDistance}
             height={lineHeight}
             color={horizontalGridLineColor}
           />

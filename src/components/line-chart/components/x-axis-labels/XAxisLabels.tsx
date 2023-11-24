@@ -1,5 +1,6 @@
 import { Group, Text } from '@shopify/react-native-skia';
 import React from 'react';
+import { Y_AXIS_LABEL_HORIZONTAL_GAP } from '../../../../constants';
 import type { XAxisLabelsPropsType } from './XAxisLabelTypes';
 
 /**
@@ -31,7 +32,9 @@ const XAxisLabels = ({
       // Calculate x and y positions based on label and orientation
       const xPosition =
         (xScale(label) ?? 0) -
-        (verticalLabel ? labelLength?.width! : label.length * (labelSize / 4));
+        (verticalLabel
+          ? labelLength?.width! + Y_AXIS_LABEL_HORIZONTAL_GAP
+          : label.length * (labelSize / 4));
       const yPosition = verticalLabel ? chartHeight : canvasHeight - labelSize / 2;
 
       return (

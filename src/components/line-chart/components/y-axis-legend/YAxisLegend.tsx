@@ -9,24 +9,18 @@ import { DEFAULT_LABEL_SIZE } from '../../../../constants';
  *
  * @param {YAxisLegendPropsType} props - The component's props.
  * @param {number} props.labelSize - Font size for the label.
- * @param {number} props.legendSize - Font size for the legend.
  * @param {number} props.chartHeight - Height of the chart.
  * @param {string} props.yAxisLegend - The Y-axis legend text.
- * @param {string} props.yLegendColor - Color of the legend text.
- * @param {number} props.yLegendMarginRight - Margin right for the legend container.
- * @param {number} props.yLegendMarginLeft - Margin left for the legend container.
+ * @param {TextStyle} props.yLegendStyles - Styles object for YLegend
  * @returns {JSX.Element} The YAxisLegend component.
  */
 const YAxisLegend = ({
   labelSize = DEFAULT_LABEL_SIZE,
-  legendSize,
   chartHeight,
   yAxisLegend,
-  yLegendColor,
-  yLegendMarginRight,
-  yLegendMarginLeft
+  yLegendStyles
 }: YAxisLegendPropsType): JSX.Element => {
-  const yAxisLegendRotatedWidth = yAxisLegend?.length * (legendSize ?? labelSize);
+  const yAxisLegendRotatedWidth = yAxisLegend?.length * (yLegendStyles?.fontSize ?? labelSize);
 
   // Check if there is Y-axis legend text to display
   if (yAxisLegend.length > 0) {
@@ -34,18 +28,13 @@ const YAxisLegend = ({
       <View
         style={
           styles({
-            legendSize,
             labelSize,
-            chartHeight,
-            yLegendMarginLeft,
-            yLegendMarginRight
+            chartHeight
           }).yAxisLegendContainer
         }
       >
         <View style={styles({ yAxisLegendRotatedWidth }).yAxisLegendRotation}>
-          <Text style={styles({ labelSize, legendSize, yLegendColor }).yAxisLegendText}>
-            {yAxisLegend}
-          </Text>
+          <Text style={styles({ labelSize, yLegendStyles }).yAxisLegendText}>{yAxisLegend}</Text>
         </View>
       </View>
     );

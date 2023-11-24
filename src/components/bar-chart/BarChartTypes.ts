@@ -1,7 +1,7 @@
 import type { DataSource } from '@shopify/react-native-skia';
 import type { TextStyle } from 'react-native';
 
-type BarChartDataType = {
+type ChartDataType = {
   xAxis: {
     labels: string[];
   };
@@ -17,9 +17,9 @@ type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] exte
 export type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>;
 
 type BarChartProps = {
-  chartData: BarChartDataType;
-  barGap?: Range<0, 1000>;
-  chartHeight?: Range<0, 1000>;
+  chartData: ChartDataType;
+  barGap?: Range<0, 999>;
+  chartHeight?: Range<0, 999>;
   barWidth?: Range<0, 200>;
   barColor?: string;
   barRadius?: Range<0, 200>;
@@ -50,15 +50,15 @@ type BarChartProps = {
 };
 
 interface BarChartHookPropType {
-  chartData: BarChartDataType;
-  chartHeight?: Range<0, 1000>;
+  chartData: ChartDataType;
+  chartHeight: Range<0, 999>;
   yAxisMax?: number;
   yAxisMin?: number;
   labelFontFamily?: DataSource;
   barRadius: number;
   labelSize: Range<0, 50>;
   barWidth: number;
-  barGap: Range<0, 1000>;
+  barGap: Range<0, 999>;
   initialDistance: Range<0, 150>;
   yAxisLegend: string;
   legendSize: number;
@@ -80,4 +80,4 @@ interface BarChartStylePropType {
   xLabelMarginLeft: number;
 }
 
-export { BarChartProps, BarChartDataType, BarChartHookPropType, BarChartStylePropType };
+export { BarChartProps, ChartDataType, BarChartHookPropType, BarChartStylePropType };

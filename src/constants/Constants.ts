@@ -1,4 +1,6 @@
-export const MAX_CANVAS_WIDTH = 2718;
+import { globalMetrics } from '../theme';
+
+export const MAX_CANVAS_WIDTH = globalMetrics.isAndroid ? 5948 : 2718;
 export const DEFAULT_LABEL_SIZE = 18;
 export const LINE_ANIMATION_TIME = 1000;
 export const CHART_X_LABEL_HEIGHT_RECTIFIER = 2;

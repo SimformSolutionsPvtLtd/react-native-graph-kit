@@ -1,23 +1,17 @@
-import type { ColorValue } from 'react-native';
+import type { TextStyle } from 'react-native';
 
 export type XAxisLegendPropsType = {
   canvasWidth: number;
   yAxisWidth: number;
   labelSize: number;
-  legendSize?: number;
   xAxisLegend: string;
-  xLegendColor?: ColorValue;
-  xLegendMarginTop?: number;
-  xLegendMarginBottom?: number;
+  xLegendStyles?: TextStyle;
 };
 
-export type XAxisLegendStylesType =
+export type xLegendStylesType =
   | Partial<{
       xAxisLegendWidth: number;
-      xLegendColor: ColorValue;
-      legendSize: number;
       labelSize: number;
-      xLegendMarginTop: number;
-      xLegendMarginBottom: number;
+      xLegendStyles?: TextStyle;
     }>
   | undefined;
