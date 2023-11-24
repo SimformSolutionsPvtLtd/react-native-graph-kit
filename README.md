@@ -13,7 +13,10 @@ Welcome to **React Native Graph Kit**, a powerful library that seamlessly integr
 
 ## 🎬 Preview
 
-<img src="./assets/charts.gif" height="550px" width="250px" style="border-radius:10px" >
+| BarChart                                                                                    |                                                                                                     |
+| ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| <img src="./assets/barChart1.gif" height="280px" width="300px" style="border-radius:10px" > | <img src="./assets/barChartTooltip.gif" height="280px" width="300px"  style="border-radius:10px"  > |
+|                                                                                             |
 
 ## Quick Access
 
