@@ -1,16 +1,9 @@
 import { StyleSheet } from 'react-native';
-import type { XAxisLegendStylesType } from './XAxisLegendTypes';
+import type { xLegendStylesType } from './XAxisLegendTypes';
 import { DEFAULT_LABEL_SIZE } from '../../../../constants';
 
-const styles = (params: XAxisLegendStylesType = {}) => {
-  const {
-    labelSize = DEFAULT_LABEL_SIZE,
-    xAxisLegendWidth,
-    xLegendColor,
-    legendSize,
-    xLegendMarginTop,
-    xLegendMarginBottom
-  } = params;
+const styles = (params: xLegendStylesType = {}) => {
+  const { labelSize = DEFAULT_LABEL_SIZE, xAxisLegendWidth, xLegendStyles } = params;
 
   return StyleSheet.create({
     xAxisLegendContainer: {
@@ -20,10 +13,8 @@ const styles = (params: XAxisLegendStylesType = {}) => {
     xAxisLegendText: {
       alignSelf: 'center',
       textAlign: 'center',
-      color: xLegendColor,
-      fontSize: legendSize ?? labelSize - 4,
-      paddingTop: xLegendMarginTop,
-      paddingBottom: xLegendMarginBottom ?? 5
+      fontSize: xLegendStyles?.fontSize ?? labelSize - 2,
+      ...xLegendStyles
     }
   });
 };

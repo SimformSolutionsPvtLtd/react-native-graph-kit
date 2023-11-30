@@ -11,25 +11,19 @@ import type { XAxisLegendPropsType } from './XAxisLegendTypes';
  * @param {number} props.canvasWidth - Width of the canvas.
  * @param {number} props.yAxisWidth - Width of the Y-axis.
  * @param {number} props.labelSize - Size of the axis labels.
- * @param {number} props.legendSize - Size of the legend text.
  * @param {string} props.xAxisLegend - Text to display as X-axis legend.
- * @param {string} props.xLegendColor - Color of the X-axis legend text.
- * @param {number} props.xLegendMarginTop - Top margin of the X-axis legend text.
- * @param {number} props.xLegendMarginBottom - Bottom margin of the X-axis legend text.
+ * @param {TextStyle} props.xLegendStyles - Styles object for XLegend
  * @returns {JSX.Element} XAxisLegend component.
  */
 const XAxisLegend = ({
   canvasWidth,
   yAxisWidth,
   labelSize,
-  legendSize,
   xAxisLegend,
-  xLegendColor,
-  xLegendMarginTop,
-  xLegendMarginBottom,
+  xLegendStyles
 }: XAxisLegendPropsType): JSX.Element => {
   const xAxisLegendWidth =
-    canvasWidth - yAxisWidth * 10 - (legendSize ?? labelSize) * 2;
+    canvasWidth - yAxisWidth * 10 - (xLegendStyles?.fontSize ?? labelSize) * 2;
 
   // Render X-axis legend if it has content
   if (xAxisLegend.length > 0) {
@@ -39,13 +33,11 @@ const XAxisLegend = ({
           numberOfLines={1}
           style={
             styles({
-              xLegendColor,
-              legendSize,
               labelSize,
-              xLegendMarginTop,
-              xLegendMarginBottom,
+              xLegendStyles
             }).xAxisLegendText
-          }>
+          }
+        >
           {xAxisLegend}
         </Text>
       </View>

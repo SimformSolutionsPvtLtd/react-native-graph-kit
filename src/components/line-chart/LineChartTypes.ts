@@ -14,30 +14,24 @@ import type {
   LayoutChangeEvent,
   NativeScrollEvent,
   StyleProp,
+  TextStyle,
   ViewStyle
 } from 'react-native';
+import type { ChartDataType, Range } from '../bar-chart';
 import type { PointDataType, SetWindowSizeArgsType, WindowSizeDataType } from '../tooltip';
-
-export type LineChartDataType = {
-  xAxis: {
-    labels: string[];
-  };
-  yAxis: {
-    datasets: number[];
-  };
-};
 
 export type ScaledDataType = Array<{ x: number; y: number }>;
 
 export interface CommonLineChartTypes {
-  chartData: LineChartDataType;
+  chartData: ChartDataType;
   verticalLabel?: boolean;
   labelSize?: number;
   initialDistance?: number;
   verticalLabelHeight?: number;
-  xAxisLength?: number;
+  xAxisLength?: Range<1, 999>;
   yAxisMin?: number;
   yAxisMax?: number;
+  showAnimation?: boolean;
 }
 
 export interface LineChartHookPropsType extends CommonLineChartTypes {
@@ -70,7 +64,7 @@ export interface LineChartHookReturnType {
 }
 
 export interface LineChartPropsType extends CommonLineChartTypes {
-  lineWidth?: AnimatedProp<number>;
+  lineWidth?: AnimatedProp<Range<1, 10>>;
   labelColor?: Color;
   showLines?: boolean;
   lineColor?: Color;
@@ -79,13 +73,8 @@ export interface LineChartPropsType extends CommonLineChartTypes {
   chartBackgroundColor?: ColorValue;
   yAxisLegend?: string;
   xAxisLegend?: string;
-  legendSize?: number;
-  xLegendMarginTop?: number;
-  xLegendMarginBottom?: number;
-  yLegendMarginRight?: number;
-  yLegendMarginLeft?: number;
-  xLegendColor?: ColorValue;
-  yLegendColor?: ColorValue;
+  xLegendStyles?: TextStyle;
+  yLegendStyles?: TextStyle;
   toolTipLabelFontSize?: number;
   toolTipColor?: string;
   toolTipDataColor?: string;

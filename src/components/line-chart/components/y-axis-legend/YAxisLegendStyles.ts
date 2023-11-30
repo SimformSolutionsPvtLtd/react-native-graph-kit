@@ -1,16 +1,13 @@
 import { StyleSheet } from 'react-native';
-import type { YAxisLegendStylesType } from './YAxisLegendTypes';
+import type { YLegendStylesType } from './YAxisLegendTypes';
 import { DEFAULT_LABEL_SIZE } from '../../../../constants';
 
-const styles = (params: YAxisLegendStylesType = {}) => {
+const styles = (params: YLegendStylesType = {}) => {
   const {
     labelSize = DEFAULT_LABEL_SIZE,
-    legendSize,
     chartHeight,
-    yLegendMarginLeft,
-    yLegendMarginRight,
     yAxisLegendRotatedWidth,
-    yLegendColor,
+    yLegendStyles
   } = params;
 
   return StyleSheet.create({
@@ -18,21 +15,21 @@ const styles = (params: YAxisLegendStylesType = {}) => {
       justifyContent: 'center',
       alignItems: 'center',
       overflow: 'hidden',
-      width: (legendSize ?? labelSize) * 2,
+      width: (yLegendStyles?.fontSize ?? labelSize) * 2,
       height: chartHeight,
-      marginLeft: yLegendMarginLeft,
-      marginRight: yLegendMarginRight,
+      marginLeft: yLegendStyles?.marginLeft,
+      marginRight: yLegendStyles?.marginRight
     },
     yAxisLegendRotation: {
       justifyContent: 'center',
       alignItems: 'center',
       transform: [{ rotate: '-90deg' }],
-      width: yAxisLegendRotatedWidth,
+      width: yAxisLegendRotatedWidth
     },
     yAxisLegendText: {
-      color: yLegendColor,
-      fontSize: legendSize ?? labelSize - 4,
-    },
+      fontSize: yLegendStyles?.fontSize ?? labelSize - 2,
+      ...yLegendStyles
+    }
   });
 };
 

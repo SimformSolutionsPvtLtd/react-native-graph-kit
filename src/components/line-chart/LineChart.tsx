@@ -33,7 +33,7 @@ const LineChartYAxis = ({
 /**
  * LineChartPropsType represents the props for the LineChart component.
  *
- * @property {Array} chartData - The data for the chart.
+ * @property {ChartDataType} chartData - The data for the chart.
  * @property {number} xAxisLength - The length of the X-axis.
  * @property {number} yAxisMin - The minimum value on the Y-axis.
  * @property {number} yAxisMax - The maximum value on the Y-axis.
@@ -48,15 +48,11 @@ const LineChartYAxis = ({
  * @property {string} horizontalGridLineColor - The color of horizontal grid lines.
  * @property {string} chartBackgroundColor - The background color of the chart.
  * @property {boolean} verticalLabel - Whether to show vertical labels.
- * @property {number} legendSize - The font size of legends.
  * @property {string} yAxisLegend - The legend for the Y-axis.
  * @property {string} xAxisLegend - The legend for the X-axis.
- * @property {string} xLegendColor - The color of X-axis legend.
- * @property {string} yLegendColor - The color of Y-axis legend.
- * @property {number} xLegendMarginTop - The top margin for X-axis legend.
- * @property {number} xLegendMarginBottom - The bottom margin for X-axis legend.
- * @property {number} yLegendMarginRight - The right margin for Y-axis legend.
- * @property {number} yLegendMarginLeft - The left margin for Y-axis legend.
+ * @property {TextStyle} xLegendStyles - X Axis legend styles
+ * @property {TextStyle} yLegendStyles - Y Axis legend styles
+ * @property {boolean} showAnimation - Prop to handle the visibility of animation
  * @returns The LineChart Component to display a chart in the available metrics of the view.
  */
 const LineChart = ({
@@ -75,22 +71,18 @@ const LineChart = ({
   horizontalGridLineColor = Colors.lightgrey,
   chartBackgroundColor = Colors.white,
   verticalLabel = false,
-  legendSize,
   yAxisLegend = '',
   xAxisLegend = '',
-  xLegendColor = Colors.grey,
-  yLegendColor = Colors.grey,
-  xLegendMarginTop,
-  xLegendMarginBottom,
-  yLegendMarginRight,
-  yLegendMarginLeft,
+  xLegendStyles = {},
+  yLegendStyles = {},
   toolTipLabelFontSize,
   toolTipColor,
   toolTipDataColor,
   circularPointerColor,
   toolTipHorizontalPadding,
   toolTipFadeOutDuration,
-  displayToolTip = false
+  displayToolTip = false,
+  showAnimation = true
 }: LineChartPropsType) => {
   const { fontStyle } = useDefaultFont({ labelSize: labelSize });
 
@@ -137,7 +129,8 @@ const LineChart = ({
     xAxisLength,
     yAxisMin,
     yAxisMax,
-    yAxisLegend
+    yAxisLegend,
+    showAnimation
   });
 
   return (
@@ -149,11 +142,8 @@ const LineChart = ({
           {...{
             yAxisLegend,
             labelSize,
-            legendSize,
             chartHeight,
-            yLegendColor,
-            yLegendMarginRight,
-            yLegendMarginLeft
+            yLegendStyles
           }}
         />
         <LineChartYAxis
@@ -237,11 +227,8 @@ const LineChart = ({
           canvasWidth,
           yAxisWidth,
           labelSize,
-          legendSize,
           xAxisLegend,
-          xLegendColor,
-          xLegendMarginTop,
-          xLegendMarginBottom
+          xLegendStyles
         }}
       />
     </View>

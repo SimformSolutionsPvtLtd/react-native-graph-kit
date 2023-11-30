@@ -4,7 +4,7 @@
 
 ---
 
-Welcome to **React Native Graph Kit**, a powerful library that seamlessly integrates D3.js and @shopify/react-native-skia to provide LineChart and BarChart components with interactive tooltips for your React Native applications. With React Native Graph Kit, you can effortlessly visualize your data in a clean and intuitive manner, making it easier than ever for users to understand complex datasets.
+**React Native Graph Kit** is a powerful library that is built using @shopify/react-native-skia to provide LineChart and BarChart components with interactive tooltips for your React Native applications. With this library, you can effortlessly visualize your data in a clean and intuitive manner, making it easier than ever for users to understand complex datasets.
 
 - It also provides an example app and a detailed usage overview of both the components.
 - Both the available components are fully Android and iOS compatible.
@@ -13,10 +13,9 @@ Welcome to **React Native Graph Kit**, a powerful library that seamlessly integr
 
 ## 🎬 Preview
 
-| BarChart                                                                                    |                                                                                                     |
-| ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| <img src="./assets/barChart1.gif" height="280px" width="300px" style="border-radius:10px" > | <img src="./assets/barChartTooltip.gif" height="280px" width="300px"  style="border-radius:10px"  > |
-|                                                                                             |
+| LineChart                                                       | BarChart                                                       |
+| --------------------------------------------------------------- | -------------------------------------------------------------- |
+| <img src="./assets/lineChart.gif"  style="border-radius:10px" > | <img src="./assets/barChart.gif"  style="border-radius:10px" > |
 
 ## Quick Access
 
@@ -48,9 +47,10 @@ And you are good to begin.
 
 # Charts
 
-| LineChart                                                       | BarChart                                                       |
-| --------------------------------------------------------------- | -------------------------------------------------------------- |
-| <img src="./assets/lineChart.gif"  style="border-radius:10px" > | <img src="./assets/barChart.gif"  style="border-radius:10px" > |
+| BarChart                                                                 | LineChart                                                                    |
+| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| <img src="./assets/barChartWithLegends.png" style="border-radius:10px" > | <img src="./assets/lineChartWithLegends.png"   style="border-radius:10px"  > |
+|                                                                          |
 
 - LineChart: Create elegant line charts to showcase trends and patterns in your data.
 - BarChart: Display data using visually appealing bar charts, making comparisons at a glance.
@@ -171,38 +171,33 @@ export default App;
 
 ### Chart Props
 
-| Prop                    | Default     | Type                                  | Description                                          | BarChart | LineChart |
-| :---------------------- | :---------- | :------------------------------------ | :--------------------------------------------------- | -------- | --------- |
-| **chartData\***         | null        | BarChartDataType or LineChartDataType | Data to plot graphs                                  | ✔️       | ✔️        |
-| chartHeight             | 500         | number                                | Hight of chart in BarChart                           | ✔️       | ⤫         |
-| showLines               | true        | boolean                               | Control visibility of Y Axis Ref lines on the chart  | ✔️       | ✔️        |
-| lineHeight              | 2           | number                                | Height of horizontal grid lines in BarChart          | ✔️       | ⤫         |
-| lineWidth               | 3           | number                                | The linewidth of LineChart                           | ⤫        | ✔️        |
-| lineColor               | #DE5E69     | ColorValue                            | The line color of LineChart                          | ⤫        | ✔️        |
-| barWidth                | 20          | number                                | The width of the bars in BarChart                    | ✔️       | ⤫         |
-| barColor                | #DE5E69     | ColorValue                            | The color of the bars in BarChart                    | ✔️       | ⤫         |
-| barRadius               | 0           | number                                | The borderRadius of the bars in BarChart from top    | ✔️       | ⤫         |
-| labelSize               | 18          | number                                | The fontsize of labels on the chart                  | ✔️       | ✔️        |
-| labelColor              | #000000     | ColorValue                            | The font color of chart labels                       | ✔️       | ✔️        |
-| labelFontFamily         | System Font | ColorValue                            | The font path that will be applied to chart labels   | ✔️       | ✔️        |
-| horizontalGridLineColor | #D3D3D3     | Color                                 | The Ref lines color                                  | ✔️       | ✔️        |
-| yAxisMin                | 0           | number                                | The minimum value for the YAxis Plotting             | ✔️       | ✔️        |
-| yAxisMax                | auto        | number                                | The minimum value for the YAxis Plotting             | ✔️       | ✔️        |
-| initialDistance         | 10          | number                                | The initial distance of chart from the Y Axis Labels | ✔️       | ✔️        |
-| xAxisLength             | auto        | number                                | Manual distance between x Axis Plotting              | ⤫        | ✔️        |
-| verticalLabel           | false       | boolean                               | Handle rotation of X-Axis Labels                     | ✔️       | ✔️        |
-| verticalLabelHeight     | auto        | number                                | Desired height of the X-Axis                         | ⤫        | ✔️        |
-| chartBackgroundColor    | #FFFFFF     | Color                                 | Chart background color                               | ✔️       | ✔️        |
-| legendSize              | 14          | number                                | Font size of X & Y Axis Legends                      | ✔️       | ✔️        |
-| xAxisLegend             | undefined   | string                                | The X Axis Legend Value                              | ✔️       | ✔️        |
-| yAxisLegend             | undefined   | string                                | The Y Axis Legend Value                              | ✔️       | ✔️        |
-| xLegendMarginTop        | undefined   | number                                | Top Margin of Chart from X Axis Legend               | ✔️       | ✔️        |
-| xLegendMarginBottom     | 5           | number                                | Bottom Margin of Chart X Axis Legend                 | ✔️       | ✔️        |
-| yLegendMarginRight      | undefined   | number                                | Margin Right of Y Axis Legend                        | ✔️       | ✔️        |
-| yLegendMarginLeft       | undefined   | number                                | Margin Left of Y Axis Legend                         | ✔️       | ✔️        |
-| xLegendStyles           | Default     | TextStyle                             | X Axis Legend styles                                 | ✔️       | ✔️        |
-| yLegendStyles           | Default     | TextStyle                             | Y Axis Legend styles                                 | ✔️       | ✔️        |
-| barGap                  | 50          | number                                | X Axis length covered by bars                        | ✔️       | ⤫         |
+| Prop                    | Default     | Type          | Description                                          | BarChart | LineChart |
+| :---------------------- | :---------- | :------------ | :--------------------------------------------------- | -------- | --------- |
+| **chartData\***         | null        | ChartDataType | Data to plot graphs                                  | ✔️       | ✔️        |
+| chartHeight             | 500         | number        | Hight of chart in BarChart                           | ✔️       | ⤫         |
+| showLines               | true        | boolean       | Control visibility of Y Axis Ref lines on the chart  | ✔️       | ✔️        |
+| lineHeight              | 2           | number        | Height of horizontal grid lines in BarChart          | ✔️       | ⤫         |
+| lineWidth               | 3           | number        | The linewidth of LineChart                           | ⤫        | ✔️        |
+| lineColor               | #DE5E69     | ColorValue    | The line color of LineChart                          | ⤫        | ✔️        |
+| barWidth                | 20          | number        | The width of the bars in BarChart                    | ✔️       | ⤫         |
+| barColor                | #DE5E69     | ColorValue    | The color of the bars in BarChart                    | ✔️       | ⤫         |
+| barRadius               | 0           | number        | The borderRadius of the bars in BarChart from top    | ✔️       | ⤫         |
+| barGap                  | 50          | number        | X Axis length covered by bars                        | ✔️       | ⤫         |
+| labelSize               | 18          | number        | The fontsize of labels on the chart                  | ✔️       | ✔️        |
+| labelColor              | #000000     | ColorValue    | The font color of chart labels                       | ✔️       | ✔️        |
+| labelFontFamily         | System Font | ColorValue    | The font path that will be applied to chart labels   | ✔️       | ✔️        |
+| horizontalGridLineColor | #D3D3D3     | Color         | The Ref lines color                                  | ✔️       | ✔️        |
+| yAxisMin                | 0           | number        | The minimum value for the YAxis Plotting             | ✔️       | ✔️        |
+| yAxisMax                | auto        | number        | The minimum value for the YAxis Plotting             | ✔️       | ✔️        |
+| initialDistance         | 10          | number        | The initial distance of chart from the Y Axis Labels | ✔️       | ✔️        |
+| xAxisLength             | auto        | number        | Manual distance between x Axis Plotting              | ⤫        | ✔️        |
+| verticalLabel           | false       | boolean       | Handle rotation of X-Axis Labels                     | ✔️       | ✔️        |
+| verticalLabelHeight     | auto        | number        | Desired height of the X-Axis                         | ⤫        | ✔️        |
+| chartBackgroundColor    | #FFFFFF     | Color         | Chart background color                               | ✔️       | ✔️        |
+| xAxisLegend             | undefined   | string        | The X Axis Legend Value                              | ✔️       | ✔️        |
+| yAxisLegend             | undefined   | string        | The Y Axis Legend Value                              | ✔️       | ✔️        |
+| xLegendStyles           | Default     | TextStyle     | X Axis Legend styles                                 | ✔️       | ✔️        |
+| yLegendStyles           | Default     | TextStyle     | Y Axis Legend styles                                 | ✔️       | ✔️        |
 
 ---
 
@@ -232,8 +227,7 @@ yarn example android   // For Android
 
 # TODO
 
-- [ ] Add Curve path prop in LineChart Component
-- [ ] Landscape support
+- [ ] Add option to enable Parametric Curve
 
 ## Find this library useful? ❤️
 

@@ -44,7 +44,7 @@ const YRefLines = ({
             strokeWidth={1}
             path={`M10,${yPoint} L${xAxisLength ? canvasWidthHandler : canvasWidth},${yPoint}`}
           >
-            <DashPathEffect intervals={[5, 10]} />
+            <DashPathEffect intervals={[7, 7]} />
           </Path>
         );
       })}

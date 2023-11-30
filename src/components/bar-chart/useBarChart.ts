@@ -8,15 +8,14 @@ import {
   useTouchHandler,
   useValue
 } from '@shopify/react-native-skia';
-import type { NumberValue } from 'd3';
-import * as d3 from 'd3';
+import { max, scaleLinear, scalePoint, type NumberValue } from 'd3';
 import { useEffect } from 'react';
 import { Easing } from 'react-native';
-import { useDefaultFont } from '../../hooks';
-import { chartWidth, Colors, horizontalScale, screenHeight } from '../../theme';
-import type { BarChartHookPropType } from './BarChartTypes';
-import { useToolTipUtils } from '../tooltip';
 import { BARGRAPH_TOOLTIP_HITSLOP } from '../../constants';
+import { useDefaultFont } from '../../hooks';
+import { Colors, chartWidth, horizontalScale, screenHeight } from '../../theme';
+import { useToolTipUtils } from '../tooltip';
+import type { BarChartHookPropType } from './BarChartTypes';
 
 export default function useBarChart({
   chartData,
@@ -58,7 +57,7 @@ export default function useBarChart({
     setWindowSize
   } = useToolTipUtils();
 
-  const yMaxRange = Math.max(...yAxisData.map((number) => number));
+  const yMaxRange = Math.max(...yAxisData?.map((number) => number));
   const getMaxWidthLabel: number = xAxisData.reduce((max: number, item) => {
     return Math.max(max, font ? font?.measureText(item).width : 0);
   }, 0);
@@ -74,11 +73,10 @@ export default function useBarChart({
     canvasHeight + chartBottomMargin + getMaxWidthLabel
   );
 
-  let yScale = d3
-    .scaleLinear()
+  let yScale = scaleLinear()
     .domain([
       yAxisMin ?? 0,
-      (yAxisMax && yAxisMax) ?? Math.max(...yAxisData.map((yDataPoint: number) => yDataPoint))
+      (yAxisMax && yAxisMax) ?? Math.max(...yAxisData?.map((yDataPoint: number) => yDataPoint))
     ])
     .range([0, graphHeight]);
 
@@ -97,13 +95,12 @@ export default function useBarChart({
     /* `yScale` is a D3 scale function that maps the input domain (y-axis data range) to the output
     range (graph height). It is used to determine the vertical position of each data point on the
     graph. */
-    yScale = d3
-      .scaleLinear()
+    yScale = scaleLinear()
       .domain([
         yAxisMin ?? 0,
         yAxisMax
           ? yAxisMax + 20
-          : d3.max(yAxisData, (yDataPoint: number) => yDataPoint + (yTicks[1] - yTicks[0]))
+          : max(yAxisData, (yDataPoint: number) => yDataPoint + (yTicks[1] - yTicks[0]))
       ] as Iterable<NumberValue>)
       .range([0, graphHeight]);
   }
@@ -114,10 +111,12 @@ export default function useBarChart({
     return calculateXAxisWidth > 2730 ? 2730 : barGap * xAxisData?.length;
   };
 
-  const xScaleBounds = [yLabelMaxLength, barGap ? checkXWidth() - barWidth * 2 : chartWidth];
+  const xScaleBounds = [
+    yLabelMaxLength,
+    barGap ? checkXWidth() - initialDistance - barWidth * 2 : chartWidth + initialDistance
+  ];
 
-  const xScale = d3
-    .scalePoint()
+  const xScale = scalePoint()
     .domain(xAxisData.map((d) => d?.toString()))
     .range(xScaleBounds)
     .align(0);
@@ -173,7 +172,7 @@ export default function useBarChart({
     canvasHeight - 2 * chartBottomMargin - yScale.ticks()[0] + axisPositionValue;
   const yLabelWidth: number = yAxisLegend?.length * legendSize;
   const canvasWidth: number = getMaxWidthForYAxis + horizontalScale(20);
-  const barChartWidth: number = barGap ? checkXWidth() : chartWidth;
+  const barChartWidth: number = barGap ? checkXWidth() : chartWidth + initialDistance;
   const xLabelPaddingLeft: number =
     yAxisLegend?.length * legendSize - getMaxWidthForYAxis + horizontalScale(20);
   const xLabelMarginLeft: number = getMaxWidthForYAxis + canvasWidth;
