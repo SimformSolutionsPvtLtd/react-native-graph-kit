@@ -1,3 +1,5 @@
+<img src="./assets/reactGraph.gif" >
+
 # react-native-graph-kit
 
 [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
@@ -8,8 +10,6 @@
 
 - It also provides an example app and a detailed usage overview of both the components.
 - Both the available components are fully Android and iOS compatible.
-
----
 
 ## 🎬 Preview
 
