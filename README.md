@@ -201,11 +201,11 @@ export default App;
 
 ---
 
-### ToolTip Props
+### Tooltip Props
 
 | Prop                     | Default | Type    | Description                             | BarChart | LineChart |
 | :----------------------- | :------ | :------ | :-------------------------------------- | -------- | --------- |
-| displayToolTip           | false   | boolean | Flag to handle tooltip visibility       | ✔️       | ✔️        |
+| displayTooltip           | false   | boolean | Flag to handle tooltip visibility       | ✔️       | ✔️        |
 | toolTipLabelFontSize     | 12      | number  | Font size                               | ✔️       | ✔️        |
 | toolTipColor             | #FF0000 | string  | Tooltip color                           | ✔️       | ✔️        |
 | toolTipDataColor         | #FFFFFF | string  | Tooltip data color                      | ✔️       | ✔️        |

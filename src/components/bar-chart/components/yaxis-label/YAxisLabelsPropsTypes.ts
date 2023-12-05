@@ -4,8 +4,8 @@ import type { ScaleLinear } from 'd3';
 export interface YAxisLabelsPropsType {
   font: SkFont;
   canvasHeight: number;
-  axisPositionValue: number;
+  AXIS_POSITION_VALUE: number;
   labelColor: string;
-  chartBottomMargin: number;
+  CHART_BOTTOM_MARGIN: number;
   yScale: ScaleLinear<number, number>;
 }

@@ -1,20 +1,20 @@
 import {
-  SkFont,
-  Skia,
-  SkiaValue,
   interpolate,
   matchFont,
   runTiming,
+  SkFont,
+  Skia,
+  SkiaValue,
   useComputedValue,
   useFont,
   useValue
 } from '@shopify/react-native-skia';
 import { useEffect } from 'react';
 import { useDefaultFont } from '../../hooks';
-import type { UseToolTipPropsType } from './ToolTipTypes';
 import { horizontalScale, moderateScale, verticalScale } from '../../theme';
+import type { UseTooltipPropsType } from './ToolTipTypes';
 
-const useToolTip = ({
+const useTooltip = ({
   labelFontFamily,
   xAxisLegend,
   pointData,
@@ -26,7 +26,7 @@ const useToolTip = ({
   toolTipLabelFontSize = moderateScale(12),
   toolTipHorizontalPadding = horizontalScale(20),
   toolTipFadeOutDuration = 4000
-}: UseToolTipPropsType) => {
+}: UseTooltipPropsType) => {
   const { fontStyle } = useDefaultFont({ labelSize: toolTipLabelFontSize });
   const userAddedFont = useFont(labelFontFamily, toolTipLabelFontSize);
   const font: SkFont | null = labelFontFamily ? userAddedFont : matchFont(fontStyle);
@@ -39,7 +39,7 @@ const useToolTip = ({
       ? `${labelForX}: ${pointData.x}`
       : `${labelForY}: ${pointData.y}`;
   const tooltipWidth = font ? font.measureText(longestFont).width + toolTipHorizontalPadding : 0;
-  const halfToolTipWidth = tooltipWidth / 2;
+  const halfTooltipWidth = tooltipWidth / 2;
   const tooltipHeight = 3 * toolTipLabelFontSize;
   const tipHeight = verticalScale(10); // The pointed tip of the tooltip
   const textPaddingLeft = toolTipHorizontalPadding / 2;
@@ -56,7 +56,7 @@ const useToolTip = ({
 
   /* Initial position of tooltip: display on top of the data point without being cropped from
    either left or right side */
-  let xCordForRoundedRect = xCoordinateForDataPoint.current - halfToolTipWidth;
+  let xCordForRoundedRect = xCoordinateForDataPoint.current - halfTooltipWidth;
   let yCordForRoundedRect = yCoordinateForDataPoint.current - (tooltipHeight + tipHeight);
   let xCordForTopText = xCordForRoundedRect + textPaddingLeft;
   let yCordForTopText = yCordForRoundedRect + yCordOffsetForText;
@@ -66,7 +66,7 @@ const useToolTip = ({
   /* Handle the case where the tooltip might get cropped from top. Redraw and position it below 
     the data point  */
   if (yCoordinateForDataPoint.current - (tooltipHeight + tipHeight) < 0) {
-    xCordForRoundedRect = xCoordinateForDataPoint.current - halfToolTipWidth;
+    xCordForRoundedRect = xCoordinateForDataPoint.current - halfTooltipWidth;
     yCordForRoundedRect = yCoordinateForDataPoint.current + tipHeight;
     xCordForTopText = xCordForRoundedRect + textPaddingLeft;
     yCordForTopText = yCordForRoundedRect + yCordOffsetForText;
@@ -81,8 +81,8 @@ const useToolTip = ({
     y3 = yCoordinateForDataPoint.current + tipHeight;
   }
 
-  if (xCoordinateForDataPoint.current - xForWindow > halfToolTipWidth) {
-    if (xCoordinateForDataPoint.current - xForWindow + halfToolTipWidth > windowSize.current.x) {
+  if (xCoordinateForDataPoint.current - xForWindow > halfTooltipWidth) {
+    if (xCoordinateForDataPoint.current - xForWindow + halfTooltipWidth > windowSize.current.x) {
       /* Handle the case where the tooltip might get cropped from right side. Redraw and position it on 
         left side of the data point */
       xCordForRoundedRect = xCoordinateForDataPoint.current - tooltipWidth - tipHeight;
@@ -157,4 +157,4 @@ const useToolTip = ({
   };
 };
 
-export default useToolTip;
+export default useTooltip;

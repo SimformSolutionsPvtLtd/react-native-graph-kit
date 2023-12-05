@@ -1,8 +1,8 @@
 import {
-  SkPath,
+  runTiming,
   SkiaMutableValue,
   SkiaValue,
-  runTiming,
+  SkPath,
   useComputedValue,
   useTouchHandler,
   useValue
@@ -25,12 +25,12 @@ import {
   findMaxNumber,
   generateLinePath
 } from '../../utils';
+import { useTooltipUtils } from '../tooltip';
 import type {
   LineChartHookPropsType,
   LineChartHookReturnType,
   ScaledDataType
 } from './LineChartTypes';
-import { useToolTipUtils } from '../tooltip';
 
 /**
  * Reference to handle the line animation.
@@ -72,7 +72,7 @@ const useLineChart = ({
     yCoordinateForDataPoint,
     setXForWindow,
     setWindowSize
-  } = useToolTipUtils();
+  } = useTooltipUtils();
 
   /**
    * Value to manipulate the line drawing path.

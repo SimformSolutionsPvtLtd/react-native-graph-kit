@@ -16,7 +16,7 @@ const XAxisLabels = ({
 }: XAxisLabelsPropType) => {
   return (
     <>
-      {xAxisData.map((dataPoint, index) => {
+      {xAxisData?.map((dataPoint, index) => {
         const { height, width } = font?.measureText(dataPoint);
         const xScaleWidth = (xScale(dataPoint) as number) + barWidth / 2 + initialDistance;
         const xPoint = verticalLabel

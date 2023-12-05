@@ -1,14 +1,14 @@
 import { Circle, Group, Path, RoundedRect, Text } from '@shopify/react-native-skia';
 import React from 'react';
 import { Colors } from '../../theme';
-import type { ToolTipPropsType } from './ToolTipTypes';
-import useToolTip from './useToolTip';
+import type { TooltipPropsType } from './ToolTipTypes';
+import useTooltip from './useToolTip';
 import {
   TOOLTIP_BORDER_RADIUS_RECTIFIER,
   TOOLTIP_DATA_POINT_CIRCLE_RECTIFIER
 } from '../../constants';
 
-const ToolTip = ({
+const Tooltip = ({
   xCoordinateForDataPoint,
   yCoordinateForDataPoint,
   pointData,
@@ -24,7 +24,7 @@ const ToolTip = ({
   displayCircularPointer = false,
   toolTipHorizontalPadding,
   toolTipFadeOutDuration
-}: ToolTipPropsType) => {
+}: TooltipPropsType) => {
   const {
     font,
     xCordForRoundedRect,
@@ -39,7 +39,7 @@ const ToolTip = ({
     opacity,
     labelForX,
     labelForY
-  } = useToolTip({
+  } = useTooltip({
     labelFontFamily,
     xAxisLegend,
     pointData,
@@ -96,4 +96,4 @@ const ToolTip = ({
   );
 };
 
-export default ToolTip;
+export default Tooltip;

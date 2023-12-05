@@ -81,7 +81,7 @@ export interface LineChartPropsType extends CommonLineChartTypes {
   circularPointerColor?: string;
   toolTipHorizontalPadding?: number;
   toolTipFadeOutDuration?: number;
-  displayToolTip?: boolean;
+  displayTooltip?: boolean;
 }
 
 export type LineChartYAxisProps = {

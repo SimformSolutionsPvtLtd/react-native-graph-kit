@@ -1,8 +1,8 @@
 import {
-  SkFont,
-  Skia,
   matchFont,
   runTiming,
+  SkFont,
+  Skia,
   useComputedValue,
   useFont,
   useTouchHandler,
@@ -11,10 +11,15 @@ import {
 import { max, scaleLinear, scalePoint, type NumberValue } from 'd3';
 import { useEffect } from 'react';
 import { Easing } from 'react-native';
-import { BARGRAPH_TOOLTIP_HITSLOP } from '../../constants';
+import {
+  AXIS_POSITION_VALUE,
+  BARGRAPH_TOOLTIP_HITSLOP,
+  CHART_BOTTOM_MARGIN,
+  INITIAL_SPACE
+} from '../../constants';
 import { useDefaultFont } from '../../hooks';
-import { Colors, chartWidth, horizontalScale, screenHeight } from '../../theme';
-import { useToolTipUtils } from '../tooltip';
+import { chartWidth, Colors, horizontalScale, screenHeight } from '../../theme';
+import { useTooltipUtils } from '../tooltip';
 import type { BarChartHookPropType } from './BarChartTypes';
 
 export default function useBarChart({
@@ -35,15 +40,12 @@ export default function useBarChart({
   xLegendStyles,
   yLegendStyles
 }: BarChartHookPropType) {
-  const chartBottomMargin = 14;
   const { fontStyle } = useDefaultFont({ labelSize });
   const userAddedFont = useFont(labelFontFamily, labelSize);
   const font: SkFont | null = labelFontFamily ? userAddedFont : matchFont(fontStyle);
   const animationState = useValue(0);
   const canvasHeight = Math.min(screenHeight, chartHeight);
-  const graphHeight = canvasHeight - 2 * chartBottomMargin;
-  const axisPositionValue = 25;
-  const initialSpace = 10;
+  const graphHeight = canvasHeight - 2 * CHART_BOTTOM_MARGIN;
   const xAxisData: string[] = chartData?.xAxis?.labels;
   const yAxisData: number[] = chartData?.yAxis?.datasets;
   const {
@@ -55,39 +57,39 @@ export default function useBarChart({
     yCoordinateForDataPoint,
     setXForWindow,
     setWindowSize
-  } = useToolTipUtils();
+  } = useTooltipUtils();
 
   const yMaxRange = Math.max(...yAxisData?.map((number) => number));
-  const getMaxWidthLabel: number = xAxisData.reduce((max: number, item) => {
+  const getMaxWidthLabel: number = xAxisData?.reduce((max: number, item) => {
     return Math.max(max, font ? font?.measureText(item).width : 0);
   }, 0);
 
-  const getMaxHeightLabel = xAxisData.reduce((max: number, item) => {
+  const getMaxHeightLabel = xAxisData?.reduce((max: number, item) => {
     return Math.max(max, font ? font.measureText(item).height : 0);
   }, 0);
 
   const canvasHeightWithHorizontalLabel = Math.floor(
-    canvasHeight + chartBottomMargin + getMaxHeightLabel
+    canvasHeight + CHART_BOTTOM_MARGIN + getMaxHeightLabel
   );
   const canvasHeightWithVerticalLabel = Math.floor(
-    canvasHeight + chartBottomMargin + getMaxWidthLabel
+    canvasHeight + CHART_BOTTOM_MARGIN + getMaxWidthLabel
   );
 
   let yScale = scaleLinear()
     .domain([
       yAxisMin ?? 0,
-      (yAxisMax && yAxisMax) ?? Math.max(...yAxisData?.map((yDataPoint: number) => yDataPoint))
+      yAxisMax ?? Math.max(...yAxisData?.map((yDataPoint: number) => yDataPoint))
     ])
     .range([0, graphHeight]);
 
   const yTicks = yScale.ticks();
-  const yTrimedArray = yTicks.map((element: number) => {
-    return element.toString().replace('.', '');
+  const yTrimmedArray = yTicks?.map((element: number) => {
+    return element?.toString().replace('.', '');
   });
 
-  const yLabelMaxLength = Math.max(...yTrimedArray.map((number) => String(number).length));
+  const yLabelMaxLength = Math.max(...yTrimmedArray?.map((number) => String(number)?.length));
 
-  const getMaxWidthForYAxis = yTrimedArray.reduce((max: number, item) => {
+  const getMaxWidthForYAxis = yTrimmedArray?.reduce((max: number, item) => {
     return Math.max(max, (font as SkFont)?.measureText(item.toString()).width);
   }, 0);
 
@@ -139,7 +141,7 @@ export default function useBarChart({
     xAxisData?.forEach((dataPoint: string, index) => {
       const rect = Skia.XYWHRect(
         (xScale(dataPoint) as number) + yLabelMaxLength + initialDistance,
-        graphHeight + axisPositionValue,
+        graphHeight + AXIS_POSITION_VALUE,
         barWidth,
         yScale(yAxisData[index] * animationState.current) * -1
       );
@@ -155,7 +157,7 @@ export default function useBarChart({
     xAxisData?.forEach((dataPoint: string, index) => {
       const rect = Skia.XYWHRect(
         (xScale(dataPoint) as number) + yLabelMaxLength + initialDistance,
-        graphHeight + axisPositionValue,
+        graphHeight + AXIS_POSITION_VALUE,
         barWidth,
         (yScale(yAxisData[index] * animationState.current) * -1) / 2
       );
@@ -167,9 +169,9 @@ export default function useBarChart({
 
   const barChartHeight: number = verticalLabel
     ? canvasHeightWithVerticalLabel
-    : canvasHeightWithHorizontalLabel + initialSpace;
+    : canvasHeightWithHorizontalLabel + INITIAL_SPACE;
   const barLegendHeight: number =
-    canvasHeight - 2 * chartBottomMargin - yScale.ticks()[0] + axisPositionValue;
+    canvasHeight - 2 * CHART_BOTTOM_MARGIN - yScale.ticks()[0] + AXIS_POSITION_VALUE;
   const yLabelWidth: number = yAxisLegend?.length * legendSize;
   const canvasWidth: number = getMaxWidthForYAxis + horizontalScale(20);
   const barChartWidth: number = barGap ? checkXWidth() : chartWidth + initialDistance;
@@ -180,7 +182,7 @@ export default function useBarChart({
   const touchHandler = useTouchHandler(
     {
       onStart: ({ x }) => {
-        xAxisData.forEach((dataPoint, index) => {
+        xAxisData?.forEach((dataPoint, index) => {
           const xForPlottedXLabel =
             (xScale(dataPoint) as number) + yLabelMaxLength + initialDistance;
 
@@ -197,7 +199,7 @@ export default function useBarChart({
               (xScale(dataPoint) as number) + (yLabelMaxLength + initialDistance) + barWidth / 2;
             yCoordinateForDataPoint.current =
               windowSize.current.y -
-              (windowSize.current.y - (graphHeight + axisPositionValue)) -
+              (windowSize.current.y - (graphHeight + AXIS_POSITION_VALUE)) -
               yScale(yAxisData[index] * animationState.current);
           }
         });
@@ -270,14 +272,14 @@ export default function useBarChart({
     path,
     createPath,
     canvasHeightWithHorizontalLabel,
-    initialSpace,
+    INITIAL_SPACE,
     canvasHeightWithVerticalLabel,
     getMaxWidthForYAxis,
     xAxisData,
     canvasHeight,
-    chartBottomMargin,
+    CHART_BOTTOM_MARGIN,
     yScale,
-    axisPositionValue,
+    AXIS_POSITION_VALUE,
     yLabelMaxLength,
     chartWidth,
     barChartHeight,

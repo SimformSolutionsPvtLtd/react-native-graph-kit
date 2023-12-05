@@ -20,7 +20,7 @@ type SetWindowSizeArgsType = {
   };
 };
 
-interface ToolTipPropsType {
+interface TooltipPropsType {
   yCoordinateForDataPoint: SkiaValue<number>;
   xCoordinateForDataPoint: SkiaValue<number>;
   pointData: PointDataType;
@@ -38,7 +38,7 @@ interface ToolTipPropsType {
   toolTipFadeOutDuration?: number;
 }
 
-interface UseToolTipPropsType {
+interface UseTooltipPropsType {
   labelFontFamily?: DataSourceParam;
   xAxisLegend: string;
   yAxisLegend: string;
@@ -53,9 +53,9 @@ interface UseToolTipPropsType {
 }
 
 export type {
-  ToolTipPropsType,
+  TooltipPropsType,
   WindowSizeType,
-  UseToolTipPropsType,
+  UseTooltipPropsType,
   PointDataType,
   WindowSizeDataType,
   SetWindowSizeArgsType
