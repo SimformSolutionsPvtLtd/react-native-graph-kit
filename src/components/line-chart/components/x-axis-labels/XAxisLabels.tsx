@@ -39,12 +39,12 @@ const XAxisLabels = ({
 
       return (
         <Text
-          key={label + idx.toString()}
+          key={label + idx}
           font={chartFont}
           color={labelColor}
           x={xPosition}
           y={yPosition}
-          text={label.toString()}
+          text={label}
           transform={[{ rotate: verticalLabel ? -((Math.PI / 180) * 90) : 0 }]}
           origin={{
             y: verticalLabel ? chartHeight - labelSize / 10 : chartHeight,

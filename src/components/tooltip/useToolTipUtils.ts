@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import type { PointDataType, SetWindowSizeArgsType, WindowSizeDataType } from './ToolTipTypes';
 import type { NativeScrollEvent } from 'react-native';
 
-const useToolTipUtils = () => {
+const useTooltipUtils = () => {
   const windowSize = useRef<WindowSizeDataType>({
     x: 0,
     y: 0
@@ -37,4 +37,4 @@ const useToolTipUtils = () => {
   };
 };
 
-export default useToolTipUtils;
+export default useTooltipUtils;

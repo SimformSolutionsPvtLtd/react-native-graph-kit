@@ -6,14 +6,14 @@ const YAxisLabels = ({
   yScale,
   font,
   canvasHeight,
-  axisPositionValue,
+  AXIS_POSITION_VALUE,
   labelColor,
-  chartBottomMargin
+  CHART_BOTTOM_MARGIN
 }: YAxisLabelsPropsType) => {
   return (
     <>
       {yScale.ticks().map((tick: number, index: number) => {
-        const yPoint = canvasHeight - 2 * chartBottomMargin - yScale(tick) + axisPositionValue;
+        const yPoint = canvasHeight - 2 * CHART_BOTTOM_MARGIN - yScale(tick) + AXIS_POSITION_VALUE;
         return (
           <Text
             key={`y-label-${index}`}

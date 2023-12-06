@@ -6,7 +6,7 @@ type UseDefaultFontPropsType = {
 };
 
 /**
- * The function `useDefaultFont` she appropriate font family based on the platform and createselects t
+ * The function `useDefaultFont` selects the default font provided with the given fontsize.
  * a `fontStyle` object with the selected font family and font size.
  * @param {UseDefaultFontPropsType}  - - `labelSize`: The size of the label font.
  * @returns an object with a property called "fontStyle".

@@ -1,3 +1,3 @@
-export { default as ToolTip } from './ToolTip';
-export { default as useToolTipUtils } from './useToolTipUtils';
+export { default as Tooltip } from './ToolTip';
+export { default as useTooltipUtils } from './useToolTipUtils';
 export * from './ToolTipTypes';

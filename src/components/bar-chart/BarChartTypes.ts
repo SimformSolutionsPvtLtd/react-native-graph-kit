@@ -43,7 +43,7 @@ type BarChartProps = {
   toolTipDataColor?: string;
   toolTipHorizontalPadding?: number;
   toolTipFadeOutDuration?: number;
-  displayToolTip?: boolean;
+  displayTooltip?: boolean;
   showAnimation?: boolean;
   xLegendStyles?: TextStyle;
   yLegendStyles?: TextStyle;

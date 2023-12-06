@@ -2,12 +2,17 @@ import { Canvas, Path } from '@shopify/react-native-skia';
 import React from 'react';
 import { ScrollView, Text as RNText, View } from 'react-native';
 import { Colors } from '../../theme';
+import { Tooltip } from '../tooltip';
 import { styles } from './BarChartStyles';
 import type { BarChartProps } from './BarChartTypes';
 import { RenderHorizontalGridLines, XAxisLabels, YAxisLabels } from './components';
 import useBarChart from './useBarChart';
-import { ToolTip } from '../tooltip';
 
+/**
+ * The custom text input component
+ * @param {BarChartProps} props - the props for the BarChart component
+ * @returns {React.ReactElement} A React Element.
+ */
 const BarChart = ({
   chartData,
   barGap = 50,
@@ -34,7 +39,7 @@ const BarChart = ({
   toolTipDataColor,
   toolTipHorizontalPadding,
   toolTipFadeOutDuration,
-  displayToolTip = false,
+  displayTooltip = false,
   showAnimation = true,
   xLegendStyles = {},
   yLegendStyles = {}
@@ -46,9 +51,9 @@ const BarChart = ({
     canvasHeightWithHorizontalLabel,
     xAxisData,
     canvasHeight,
-    chartBottomMargin,
+    CHART_BOTTOM_MARGIN,
     yScale,
-    axisPositionValue,
+    AXIS_POSITION_VALUE,
     yLabelMaxLength,
     barChartHeight,
     barLegendHeight,
@@ -122,9 +127,9 @@ const BarChart = ({
                   yScale,
                   font,
                   canvasHeight,
-                  axisPositionValue,
+                  AXIS_POSITION_VALUE,
                   labelColor,
-                  chartBottomMargin
+                  CHART_BOTTOM_MARGIN
                 }}
               />
             </Canvas>
@@ -139,7 +144,7 @@ const BarChart = ({
           >
             <Canvas
               style={style.chartCanvasContainer}
-              onTouch={displayToolTip ? touchHandler : undefined}
+              onTouch={displayTooltip ? touchHandler : undefined}
             >
               {showLines && (
                 <RenderHorizontalGridLines
@@ -148,10 +153,10 @@ const BarChart = ({
                     xAxisData,
                     barWidth,
                     yScale,
-                    axisPositionValue,
+                    AXIS_POSITION_VALUE,
                     lineHeight,
                     canvasHeight,
-                    chartBottomMargin,
+                    CHART_BOTTOM_MARGIN,
                     horizontalGridLineColor,
                     initialDistance,
                     yLabelMaxLength
@@ -174,8 +179,8 @@ const BarChart = ({
                   canvasHeightWithHorizontalLabel
                 }}
               />
-              {displayToolTip && (
-                <ToolTip
+              {displayTooltip && (
+                <Tooltip
                   xForWindow={xForWindow.current}
                   {...{
                     xCoordinateForDataPoint,

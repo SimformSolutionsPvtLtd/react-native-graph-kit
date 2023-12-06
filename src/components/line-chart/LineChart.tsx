@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import { DEFAULT_LABEL_SIZE } from '../../constants';
 import { useDefaultFont } from '../../hooks';
 import { Colors } from '../../theme';
-import { ToolTip } from '../tooltip';
+import { Tooltip } from '../tooltip';
 import styles from './LineChartStyles';
 import type { LineChartPropsType, LineChartYAxisProps } from './LineChartTypes';
 import { XAxisLabels, XAxisLegend, YAxisLabels, YAxisLegend, YRefLines } from './components';
@@ -81,7 +81,7 @@ const LineChart = ({
   circularPointerColor,
   toolTipHorizontalPadding,
   toolTipFadeOutDuration,
-  displayToolTip = false,
+  displayTooltip = false,
   showAnimation = true
 }: LineChartPropsType) => {
   const { fontStyle } = useDefaultFont({ labelSize: labelSize });
@@ -165,7 +165,7 @@ const LineChart = ({
             onScrollEndDrag={setXForWindow}
             onLayout={setWindowSize}
           >
-            <Canvas style={canvasStyles} onTouch={displayToolTip ? touchHandler : undefined}>
+            <Canvas style={canvasStyles} onTouch={displayTooltip ? touchHandler : undefined}>
               <YRefLines
                 {...{
                   yScale,
@@ -197,8 +197,8 @@ const LineChart = ({
                 start={0}
                 end={lineAnimationState}
               />
-              {displayToolTip && (
-                <ToolTip
+              {displayTooltip && (
+                <Tooltip
                   displayCircularPointer
                   xForWindow={xForWindow.current}
                   {...{

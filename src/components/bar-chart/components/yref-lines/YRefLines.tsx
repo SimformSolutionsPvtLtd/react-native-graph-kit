@@ -7,10 +7,10 @@ const YRefLines = ({
   xAxisData,
   barWidth,
   yScale,
-  axisPositionValue,
+  AXIS_POSITION_VALUE,
   lineHeight,
   canvasHeight,
-  chartBottomMargin,
+  CHART_BOTTOM_MARGIN,
   horizontalGridLineColor,
   initialDistance,
   yLabelMaxLength
@@ -23,7 +23,7 @@ const YRefLines = ({
   return (
     <>
       {yScale.ticks().map((tick: number, index: number) => {
-        const yPoint = canvasHeight - 2 * chartBottomMargin - yScale(tick) + axisPositionValue;
+        const yPoint = canvasHeight - 2 * CHART_BOTTOM_MARGIN - yScale(tick) + AXIS_POSITION_VALUE;
         return (
           <Rect
             key={`y-grid-${index}`}
