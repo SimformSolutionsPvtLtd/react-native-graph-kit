@@ -245,20 +245,38 @@ const useLineChart = ({
     [scaledData]
   );
 
+  /**
+   * Touch handler function that responds to touch events on the chart.
+   *
+   * @param {Object} options - Options for touch handling.
+   * @param {Function} options.onStart - Callback function triggered when touch starts.
+   * @param {Object} options.onStartParams - Parameters for the onStart callback.
+   * @param {number} options.onStartParams.x - The x-coordinate of the touch point.
+   */
   const touchHandler = useTouchHandler(
     {
       onStart: ({ x }) => {
+        // Finds the closest point x-point from the point at which the users touches on the chart
         const closestX = xScale.domain().reduce((prev, curr) => {
           return Math.abs((xScale(curr) as number) - x) < Math.abs((xScale(prev) as number) - x)
             ? curr
             : prev;
         });
-        const findYValueForX = (targetX: string) => {
+
+        /**
+         * Finds the Y value for the given X value.
+         *
+         * @param {string} targetX - The target X value for which to find the Y value.
+         * @returns {number} - The Y value corresponding to the given X value.
+         */
+        const findYValueForX = (targetX: string): number => {
           const xValueIndex = chartData?.xAxis?.labels?.findIndex((e) => e == targetX?.toString());
           return chartData?.yAxis?.datasets?.[xValueIndex]; // Return 0 if the value of x is not found in the array.
         };
 
+        // Finds the Y value for the X-value found from user's touch input
         const closestY = findYValueForX(closestX);
+
         // Set X and Y coordinates of the closest data point on chart
         xScale.domain().forEach((item) => {
           if (item === closestX) {
@@ -267,6 +285,13 @@ const useLineChart = ({
         });
         yCoordinateForDataPoint.current = yScale(closestY);
 
+        /**
+         * Sets the data for the closest point on the chart.
+         *
+         * @param {Object} data - Data for the closest point.
+         * @param {string} data.x - The X value of the closest point.
+         * @param {string} data.y - The Y value of the closest point as a string.
+         */
         setPointData({
           x: closestX,
           y: closestY?.toString()
