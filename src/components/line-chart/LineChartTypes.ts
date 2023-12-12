@@ -7,7 +7,7 @@ import type {
   SkiaMutableValue,
   SkiaValue
 } from '@shopify/react-native-skia';
-import type { ScaleLinear, ScalePoint } from 'd3';
+import type { ScaleLinear, ScalePoint } from 'd3-scale';
 import type { MutableRefObject } from 'react';
 import type {
   ColorValue,

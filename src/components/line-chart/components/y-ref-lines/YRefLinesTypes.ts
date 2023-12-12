@@ -1,5 +1,5 @@
 import type { Color } from '@shopify/react-native-skia';
-import type { ScaleLinear } from 'd3';
+import type { ScaleLinear } from 'd3-scale';
 
 export type YRefLinePropsType = {
   canvasWidth: number;

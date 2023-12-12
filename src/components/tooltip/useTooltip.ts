@@ -12,7 +12,7 @@ import {
 import { useEffect } from 'react';
 import { useDefaultFont } from '../../hooks';
 import { horizontalScale, moderateScale, verticalScale } from '../../theme';
-import type { UseTooltipPropsType } from './ToolTipTypes';
+import type { UseTooltipPropsType } from './TooltipTypes';
 
 const useTooltip = ({
   labelFontFamily,

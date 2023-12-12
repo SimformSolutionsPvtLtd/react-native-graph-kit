@@ -1,5 +1,5 @@
 import type { SkFont } from '@shopify/react-native-skia';
-import type { ScalePoint } from 'd3';
+import type { ScalePoint } from 'd3-scale';
 
 export interface XAxisLabelsPropType {
   xAxisData: string[];

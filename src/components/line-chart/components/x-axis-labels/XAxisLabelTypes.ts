@@ -1,5 +1,5 @@
 import type { Color, SkFont } from '@shopify/react-native-skia';
-import type { ScalePoint } from 'd3';
+import type { ScalePoint } from 'd3-scale';
 
 export type XAxisLabelsPropsType = {
   canvasHeight: number;

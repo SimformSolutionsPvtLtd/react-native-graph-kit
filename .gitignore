@@ -62,3 +62,9 @@ buck-out/
 
 # generated
 lib
+
+# vscode settings
+.vscode/
+
+# husky settings
+.husky/

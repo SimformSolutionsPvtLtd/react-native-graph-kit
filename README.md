@@ -2,7 +2,7 @@
 
 # react-native-graph-kit
 
-[![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
+[![react-native-graph-kit on npm](https://badgen.net/npm/v/react-native-graph-kit)](https://www.npmjs.com/package/react-native-graph-kit) [![react-native-graph-kit downloads](https://badgen.net/npm/dm/react-native-graph-kit)](https://www.npmtrends.com/react-native-graph-kit) [![react-native-reactions install size](https://packagephobia.com/badge?p=react-native-graph-kit)](https://packagephobia.com/result?p=react-native-graph-kit) [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
 
 ---
 
@@ -177,7 +177,7 @@ export default App;
 | chartHeight             | 500         | number        | Hight of chart in BarChart                           | ✔️       | ⤫         |
 | showLines               | true        | boolean       | Control visibility of Y Axis Ref lines on the chart  | ✔️       | ✔️        |
 | lineHeight              | 2           | number        | Height of horizontal grid lines in BarChart          | ✔️       | ⤫         |
-| lineWidth               | 3           | number        | The linewidth of LineChart                           | ⤫        | ✔️        |
+| lineWidth               | 3           | number        | The line width value of LineChart                    | ⤫        | ✔️        |
 | lineColor               | #DE5E69     | ColorValue    | The line color of LineChart                          | ⤫        | ✔️        |
 | barWidth                | 20          | number        | The width of the bars in BarChart                    | ✔️       | ⤫         |
 | barColor                | #DE5E69     | ColorValue    | The color of the bars in BarChart                    | ✔️       | ⤫         |
@@ -188,7 +188,7 @@ export default App;
 | labelFontFamily         | System Font | ColorValue    | The font path that will be applied to chart labels   | ✔️       | ✔️        |
 | horizontalGridLineColor | #D3D3D3     | Color         | The Ref lines color                                  | ✔️       | ✔️        |
 | yAxisMin                | 0           | number        | The minimum value for the YAxis Plotting             | ✔️       | ✔️        |
-| yAxisMax                | auto        | number        | The minimum value for the YAxis Plotting             | ✔️       | ✔️        |
+| yAxisMax                | auto        | number        | The maximum value for the YAxis Plotting             | ✔️       | ✔️        |
 | initialDistance         | 10          | number        | The initial distance of chart from the Y Axis Labels | ✔️       | ✔️        |
 | xAxisLength             | auto        | number        | Manual distance between x Axis Plotting              | ⤫        | ✔️        |
 | verticalLabel           | false       | boolean       | Handle rotation of X-Axis Labels                     | ✔️       | ✔️        |
