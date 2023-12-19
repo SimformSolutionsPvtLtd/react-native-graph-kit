@@ -8,7 +8,7 @@ import {
   useTouchHandler,
   useValue
 } from '@shopify/react-native-skia';
-import { max, scaleLinear, scalePoint, type NumberValue } from 'd3';
+import { scaleLinear, scalePoint, type NumberValue } from 'd3-scale';
 import { useEffect } from 'react';
 import { Easing } from 'react-native';
 import {
@@ -22,6 +22,17 @@ import { chartWidth, Colors, horizontalScale, screenHeight } from '../../theme';
 import { useTooltipUtils } from '../tooltip';
 import type { BarChartHookPropType } from './BarChartTypes';
 
+/**
+ * Custom React hook for handling Bar Chart rendering and animation.
+ *
+ * This hook processes and calculates various properties necessary for rendering a Bar Chart,
+ * including scaling, animation, and tooltip interactions. It utilizes D3 scales and Skia paths
+ * for efficient rendering and customization.
+ *
+ * @param {BarChartHookPropType} props - The properties required for the Bar Chart hook.
+ * @returns An object containing various properties and functions for rendering and interacting
+ *          with the Bar Chart, including font information, scales, paths, and animation states.
+ */
 export default function useBarChart({
   chartData,
   chartHeight,
@@ -102,7 +113,7 @@ export default function useBarChart({
         yAxisMin ?? 0,
         yAxisMax
           ? yAxisMax + 20
-          : max(yAxisData, (yDataPoint: number) => yDataPoint + (yTicks[1] - yTicks[0]))
+          : Math.max(...yAxisData.map((yDataPoint) => yDataPoint + (yTicks[1] - yTicks[0])))
       ] as Iterable<NumberValue>)
       .range([0, graphHeight]);
   }

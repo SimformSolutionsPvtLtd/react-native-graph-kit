@@ -9,9 +9,39 @@ import { RenderHorizontalGridLines, XAxisLabels, YAxisLabels } from './component
 import useBarChart from './useBarChart';
 
 /**
- * The custom text input component
- * @param {BarChartProps} props - the props for the BarChart component
- * @returns {React.ReactElement} A React Element.
+ * BarChart Component for displaying bar charts with customizable styling and features.
+ *
+ * @param {object} props - The properties of the BarChart Component.
+ * @param {Array<object>} props.chartData - Data used to render the bar chart.
+ * @param {number} [props.barGap=50] - Gap between bars.
+ * @param {number} [props.chartHeight=500] - Height of the chart.
+ * @param {number} [props.barWidth=20] - Width of each bar.
+ * @param {string} [props.barColor=Colors.cherryRed] - Color of the bars.
+ * @param {number} [props.barRadius=0] - Border radius of the bars.
+ * @param {number} [props.labelSize=17] - Font size of labels.
+ * @param {string} [props.labelColor=Colors.black] - Color of labels.
+ * @param {string} [props.labelFontFamily] - Font family for labels.
+ * @param {boolean} [props.showLines=true] - Whether to display grid lines.
+ * @param {number} [props.lineHeight=2] - Height of grid lines.
+ * @param {boolean} [props.verticalLabel=false] - Whether to display vertical labels.
+ * @param {string} [props.horizontalGridLineColor=Colors.black] - Color of horizontal grid lines.
+ * @param {number} [props.yAxisMax] - Maximum value for the y-axis.
+ * @param {number} [props.yAxisMin] - Minimum value for the y-axis.
+ * @param {number} [props.initialDistance=0] - Initial distance for the chart.
+ * @param {string} [props.chartBackGroundColor=Colors.white] - Background color of the chart.
+ * @param {string} [props.yAxisLegend] - Label for the y-axis.
+ * @param {string} [props.xAxisLegend] - Label for the x-axis.
+ * @param {number} [props.legendSize=15] - Font size of the legend.
+ * @param {number} [props.toolTipLabelFontSize] - Font size of the tooltip labels.
+ * @param {string} [props.toolTipColor] - Background color of the tooltip.
+ * @param {string} [props.toolTipDataColor] - Color of the tooltip data.
+ * @param {number} [props.toolTipHorizontalPadding] - Horizontal padding of the tooltip.
+ * @param {number} [props.toolTipFadeOutDuration] - Tooltip fade-out duration.
+ * @param {boolean} [props.displayTooltip=false] - Whether to display tooltips.
+ * @param {boolean} [props.showAnimation=true] - Whether to show animation.
+ * @param {object} [props.xLegendStyles] - Styles for x-axis legend.
+ * @param {object} [props.yLegendStyles] - Styles for y-axis legend.
+ * @returns {React.ReactElement} - The rendered BarChart component.
  */
 const BarChart = ({
   chartData,
@@ -43,7 +73,7 @@ const BarChart = ({
   showAnimation = true,
   xLegendStyles = {},
   yLegendStyles = {}
-}: BarChartProps) => {
+}: BarChartProps): React.ReactElement => {
   const {
     font,
     xScale,

@@ -1,6 +1,6 @@
 import { useValue } from '@shopify/react-native-skia';
 import { useRef, useState } from 'react';
-import type { PointDataType, SetWindowSizeArgsType, WindowSizeDataType } from './ToolTipTypes';
+import type { PointDataType, SetWindowSizeArgsType, WindowSizeDataType } from './TooltipTypes';
 import type { NativeScrollEvent } from 'react-native';
 
 const useTooltipUtils = () => {

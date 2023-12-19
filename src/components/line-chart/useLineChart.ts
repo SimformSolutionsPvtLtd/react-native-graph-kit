@@ -7,7 +7,7 @@ import {
   useTouchHandler,
   useValue
 } from '@shopify/react-native-skia';
-import { scaleLinear, scalePoint, type ScaleLinear, type ScalePoint } from 'd3';
+import { scaleLinear, scalePoint, type ScaleLinear, type ScalePoint } from 'd3-scale';
 import React, { useCallback, useEffect, useState } from 'react';
 import type { LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native';
 import {

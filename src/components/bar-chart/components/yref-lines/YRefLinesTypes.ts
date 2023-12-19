@@ -1,4 +1,4 @@
-import type { ScaleLinear, ScalePoint } from 'd3';
+import type { ScaleLinear, ScalePoint } from 'd3-scale';
 
 export interface YRefLinesProps {
   xAxisData: string[];

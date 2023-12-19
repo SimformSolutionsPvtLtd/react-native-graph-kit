@@ -1,8 +1,8 @@
 import { Circle, Group, Path, RoundedRect, Text } from '@shopify/react-native-skia';
 import React from 'react';
 import { Colors } from '../../theme';
-import type { TooltipPropsType } from './ToolTipTypes';
-import useTooltip from './useToolTip';
+import type { TooltipPropsType } from './TooltipTypes';
+import useTooltip from './useTooltip';
 import {
   TOOLTIP_BORDER_RADIUS_RECTIFIER,
   TOOLTIP_DATA_POINT_CIRCLE_RECTIFIER
