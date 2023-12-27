@@ -2,11 +2,14 @@
 
 # react-native-graph-kit
 
-[![react-native-graph-kit on npm](https://badgen.net/npm/v/react-native-graph-kit)](https://www.npmjs.com/package/react-native-graph-kit) [![react-native-graph-kit downloads](https://badgen.net/npm/dm/react-native-graph-kit)](https://www.npmtrends.com/react-native-graph-kit) [![react-native-reactions install size](https://packagephobia.com/badge?p=react-native-graph-kit)](https://packagephobia.com/result?p=react-native-graph-kit) [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
+[![@shopify/react-native-skia](https://img.shields.io/badge/%40shopify%2Freact--native--skia-0.1.228-blue.svg?style=flat-square)](https://github.com/Shopify/react-native-skia)
+[![react-native-graph-kit on npm](https://img.shields.io/npm/v/react-native-graph-kit?style=flat-square&label=npm&color=blue)](https://www.npmjs.com/package/react-native-graph-kit) [![npm downloads](https://img.shields.io/npm/dm/react-native-graph-kit.svg?style=flat-square)](https://www.npmjs.com/package/react-native-graph-kit) [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android&style=flat-square)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple&style=flat-square)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
 
 ---
 
 **React Native Graph Kit** is a powerful library that is built using @shopify/react-native-skia to provide LineChart and BarChart components with interactive tooltips for your React Native applications. With this library, you can effortlessly visualize your data in a clean and intuitive manner, making it easier than ever for users to understand complex datasets.
+
+ℹ️ **Compatibility Notice:** This library is designed to work seamlessly with `@shopify/react-native-skia` version `<=0.1.228`. Make sure to use this version for optimal compatibility.
 
 - It also provides an example app and a detailed usage overview of both the components.
 - Both the available components are fully Android and iOS compatible.
@@ -174,7 +177,7 @@ export default App;
 | Prop                    | Default     | Type          | Description                                          | BarChart | LineChart |
 | :---------------------- | :---------- | :------------ | :--------------------------------------------------- | -------- | --------- |
 | **chartData\***         | null        | ChartDataType | Data to plot graphs                                  | ✔️       | ✔️        |
-| chartHeight             | 500         | number        | Hight of chart in BarChart                           | ✔️       | ⤫         |
+| chartHeight             | 500         | number        | Height of chart in BarChart                          | ✔️       | ⤫         |
 | showLines               | true        | boolean       | Control visibility of Y Axis Ref lines on the chart  | ✔️       | ✔️        |
 | lineHeight              | 2           | number        | Height of horizontal grid lines in BarChart          | ✔️       | ⤫         |
 | lineWidth               | 3           | number        | The line width value of LineChart                    | ⤫        | ✔️        |
@@ -210,7 +213,7 @@ export default App;
 | toolTipColor             | #FF0000 | string  | Tooltip color                           | ✔️       | ✔️        |
 | toolTipDataColor         | #FFFFFF | string  | Tooltip data color                      | ✔️       | ✔️        |
 | toolTipHorizontalPadding | 20      | number  | Tooltip padding                         | ✔️       | ✔️        |
-| toolTipFadeOutDuration   | 4000    | number  | Duration is ms to fade out tooltip      | ✔️       | ✔️        |
+| toolTipFadeOutDuration   | 4000    | number  | Duration in ms to fade out tooltip      | ✔️       | ✔️        |
 | circularPointerColor     | #000000 | string  | Color of circular pointer for LineChart | ⤫        | ✔️        |
 
 ---

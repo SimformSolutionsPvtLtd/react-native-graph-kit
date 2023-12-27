@@ -1,6 +1,6 @@
 {
   "name": "react-native-graph-kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Personalized graphs featuring customizable options for React Native app",
   "main": "lib/index",
   "types": "lib/index.d.ts",
