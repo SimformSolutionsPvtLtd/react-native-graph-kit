@@ -42,8 +42,8 @@
     "example": "yarn --cwd example"
   },
   "peerDependencies": {
-    "@shopify/react-native-skia": "^0.1.211",
-    "d3-scale": "^4.0.2",
+    "@shopify/react-native-skia": "0.1.228",
+    "d3-scale": "4.0.2",
     "react": "*",
     "react-native": "*"
   },
@@ -111,7 +111,7 @@
     ]
   },
   "dependencies": {
-    "@shopify/react-native-skia": "^0.1.228",
-    "d3-scale": "^4.0.2"
+    "@shopify/react-native-skia": "0.1.228",
+    "d3-scale": "4.0.2"
   }
 }
